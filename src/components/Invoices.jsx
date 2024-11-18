@@ -75,9 +75,9 @@ const Invoices = () => {
                     </button>
             </div>
         </div>
-        <div className='w-full h-full grid grid-cols-1 grid-rows-7 gap-4'>
+        <div className='w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4'>
           {invoices.map((invoice,index)=>(
-                    <div className='w-full bg-white rounded-lg flex justify-between items-center py-7 px-6' key={index}>
+                    <div className='w-full bg-white rounded-lg flex justify-between items-center py-10 px-6' key={index}>
                       <div className='flex gap-7 items-center'>
                         <div><span className='text-information'>#</span><span className='text-sm font-medium'>{invoice.code}</span></div>
                         <span className='text-information text-sm'>{invoice.date}</span>
@@ -102,6 +102,9 @@ const Invoices = () => {
 
     
     </div>
+    
+
+
   )
 }
 

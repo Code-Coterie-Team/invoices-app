@@ -1,11 +1,24 @@
-import React, { useState } from 'react'
-// import Demo from './components/demo'
+import React, { useEffect, useState , } from 'react'
+import Demo from './components/demo'
 import Invoices from './components/Invoices'
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 
 const App = ()=> {
+
+  const navigate = useNavigate();
+  useEffect(()=>
+    navigate("/demo")
+    ,[])
+
   return (
-    <div className='flex h-screen'>
+  <>
+  <Routes>
+    <Route path='/' element={<Invoices/>}></Route>
+    <Route path='/demo' element={<Demo/>}></Route>
+  </Routes>
+
+      {/* <div className='flex h-screen'>
       <div className='flex items-center justify-between flex-col w-24 bg-sidebar
        rounded-tl-none rounded-tr-2xl rounded-br-2xl rounded-bl-none fixed top-0 bottom-0 left-0'>
         <img src="/src/assets/icon.png" alt="" className='w-24 h-24' />
@@ -15,9 +28,10 @@ const App = ()=> {
         <img src="/src/assets/person.jfif" alt="" className='w-10 h-10 rounded-full relative bottom-4' />
         </div>
        </div>
-       {/* <Demo/> */}
+       <Demo/>
        <Invoices/>
-    </div>
+    </div> */}
+</>
   )
 }
 
