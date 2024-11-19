@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import Sidebar from './Sidebar'
 const Invoices = () => {
   const [invoices,setInvoices] = useState([
     {
@@ -53,7 +53,11 @@ const Invoices = () => {
     }
   ])
   return (
-    <div className='w-screen h-full bg-invoices flex justify-center'>
+    <div className='flex h-full w-screen'>
+
+      <Sidebar/>
+
+      <div className='w-screen h-full bg-invoices flex justify-center'>
       <div className='flex flex-col items-center w-6/12 py-20 gap-16 h-full'>
       <div className='flex justify-between w-full'>
             <div className='flex flex-col gap-3'>
@@ -104,6 +108,8 @@ const Invoices = () => {
     </div>
     
 
+
+    </div>
 
   )
 }
