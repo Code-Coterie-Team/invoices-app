@@ -213,13 +213,21 @@ function Billform() {
       </div> 
 
             <button
-              className="rounded-2xl text-center w-full p-4 hover:bg-[#DFE3FA] text-item_button text-xs font-bold"
+              className="rounded-2xl text-center w-full p-4 hover:bg-[#DFE3FA] text-bill_button text-xs font-bold"
               onClick={() =>
                 setItemList([...itemList , {id:itemList.length}])
               }
             >
               + Add New Item
             </button>
+            
+          </div>
+          <div className="w-full flex justify-between items-center">
+            <div><button className="h-12 rounded-3xl text-bill_button w-20 text-sm font-bold focus:border-black border-solid border-[1px]">Discard</button></div>
+            <div className="flex gap-8">
+              <button className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black">Save as Draft</button>
+              <button className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold">Save & Send</button>
+            </div>
           </div>
         </div>
       </div>

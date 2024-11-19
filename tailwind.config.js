@@ -21,7 +21,9 @@ export default {
         paid_text : "#33D69F",
         pending_text : "#FF8F00",
         Billform : "rgb(124, 93, 250)",
-        item_button : "rgb(126, 136, 195)"
+        bill_button : "rgb(126, 136, 195)",
+        savedraft_button:"rgb(55, 59, 83)",
+        save_button:"#E5DFFE"
       },
       width:{
         inputs: "570px",
