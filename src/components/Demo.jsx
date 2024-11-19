@@ -1,25 +1,25 @@
-import React from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
-import Sidebar from './Sidebar';
+// import React from 'react'
+// import { Navigate, useNavigate } from 'react-router-dom'
+// import Sidebar from './Sidebar';
 
-const Demo = ()=> {
-const navigate = useNavigate();
-  return (
-    <div className='flex h-screen'>
-      <Sidebar/>
-      <div className='w-screen bg-black bg-opacity-40 h-full '>
-        <div className='w-[480px] h-72 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-        rounded-lg flex flex-col items-center p-12 gap-4 '>
-            <img src="/src/assets/icon.png" alt="" className='w-24 h-24' />
-            <span className='text-xs text-[#888eb0]'>View a Demo version or login</span>
-            <button className='rounded-3xl bg-demo text-demo_text text-xs py-4 px-6 
-            font-bold hover:bg-indigo-100' onClick={()=>navigate("/")}>View as Demo</button>
+// const Demo = ()=> {
+// const navigate = useNavigate();
+//   return (
+//     <div className='flex h-screen'>
+//       <Sidebar/>
+//       <div className='w-screen bg-black bg-opacity-40 h-full '>
+//         <div className='w-[480px] h-72 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+//         rounded-lg flex flex-col items-center p-12 gap-4 '>
+//             <img src="/src/assets/icon.png" alt="" className='w-24 h-24' />
+//             <span className='text-xs text-[#888eb0]'>View a Demo version or login</span>
+//             <button className='rounded-3xl bg-demo text-demo_text text-xs py-4 px-6 
+//             font-bold hover:bg-indigo-100' onClick={()=>navigate("/")}>View as Demo</button>
 
-         </div>
-    </div> 
-    </div>
+//          </div>
+//     </div> 
+//     </div>
 
-  )
-}
+//   )
+// }
 
-export default Demo
+// export default Demo

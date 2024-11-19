@@ -19,8 +19,12 @@ export default {
         pending : "#FFF8F0",
         paid : "#F3FDF9",
         paid_text : "#33D69F",
-        pending_text : "#FF8F00"
+        pending_text : "#FF8F00",
+        Billform : "rgb(124, 93, 250)",
       },
+      width:{
+        inputs: "570px",
+      }
     },
   },
   plugins: [],
