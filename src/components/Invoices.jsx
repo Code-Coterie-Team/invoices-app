@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from './Sidebar'
 import { useDispatch, useSelector } from 'react-redux'
 import { setShowModal } from '../features/modalSlice'
+import Billform from './Billform'
 const Invoices = () => {
   const [invoices,setInvoices] = useState([
     {
@@ -56,12 +57,14 @@ const Invoices = () => {
   ])
 
   const dispatch = useDispatch();
-  const isShowModal = useSelector((state)=>state.modal.showModal)
+  const {showModal} = useSelector((state)=>state.modal)
+  // console.log(showModal,"showModal");
+
   return (
     <div className='flex h-full w-screen'>
 
       <Sidebar/>
-
+      {showModal && <Billform/>}
       <div className='w-screen h-full bg-invoices flex justify-center'>
       <div className='flex flex-col items-center w-6/12 py-20 gap-16 h-full'>
       <div className='flex justify-between w-full'>

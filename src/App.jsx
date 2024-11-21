@@ -8,12 +8,10 @@ import { useSelector } from 'react-redux';
 
 
 const App = ()=> {
-
-
    const navigate = useNavigate();
    useEffect(()=>
      navigate("/demo")
-     )
+     ,[])
 
 return(
 

@@ -2,20 +2,18 @@ import  { useState } from "react";
 import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
 import {useDispatch} from "react-redux";
+import { setShowModal } from "../features/modalSlice";
 
 
 function Billform() {
   const [itemList, setItemList] = useState([]);
-
-  const [isShowModal,setShowModal] = useState(false);
   const dispatch = useDispatch();
 
   return (
 <>
-       {isShowModal && (
-        <div className="flex h-full w-screen">
+    <div className="flex h-full w-screen">
         <Sidebar />
-        <div className="w-screen h-full bg-black bg-opacity-40">
+        <div className="w-screen h-full bg-black/40" onClick={()=>dispatch(setShowModal(false))}>
           <div className="w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20">
             <div className="w-full flex flex-col gap-5">
               <span className="text-sm text-Billform font-bold">Bill Form</span>
@@ -240,7 +238,7 @@ function Billform() {
           </div>
         </div>
       </div>
-       ) }
+       
     </>
   );
 }
