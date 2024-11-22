@@ -1,6 +1,4 @@
-import React from 'react'
-
-function Sidebar() {
+const Sidebar = ()=> {
   return (
     <div>
       <div className='flex items-center justify-between flex-col w-24 bg-sidebar

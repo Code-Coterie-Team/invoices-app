@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalSlice from "../features/modalSlice";
+import invoicesSlice from "../features/invoicesSlice";
 
 const store = configureStore({
     reducer:{
-        modal : modalSlice,
+        invoices : invoicesSlice,
     }
 })
 export default store;
