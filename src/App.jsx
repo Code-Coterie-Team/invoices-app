@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 // import Billform from './components/Billform';
 import { useSelector } from 'react-redux';
 import Demo from './components/Demo';
+import Reciept from './components/Reciept';
 
 
 const App = ()=> {
@@ -18,6 +19,8 @@ return(
    <Routes>
     <Route path='/' element={<Invoices/>}></Route>
      <Route path='/demo' element={<Demo/>}></Route>
+     <Route path='/reciept' element={<Reciept/>}></Route>
+     
    </Routes>
 
   // <Billform/>

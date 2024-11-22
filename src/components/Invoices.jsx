@@ -1,15 +1,26 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const Invoices = () => {
   const [itemList, setItemList] = useState([]);
+  const [qtyValue,setQtyValue] = useState(0.0);
+  const [priceValue,setPriceValue] = useState(0.0);
   const [showModal, setShowModal] = useState(false);
   const { invoices } = useSelector((state) => state.invoices);
+  const navigate = useNavigate();
+
+  const handleChangeQty = (event)=>{
+    setQtyValue(event.target.value);
+  };
+  const handleChangePrice = (event)=>{
+    setPriceValue(event.target.value)
+  };
 
   return (
     <>
       <div className="flex h-full w-screen">
-        <Sidebar className="z-10" />
+        <Sidebar />
         <div className="w-screen h-full bg-invoices flex justify-center">
           <div className="flex flex-col items-center w-6/12 py-20 gap-16 h-full">
             <div className="flex justify-between w-full">
@@ -47,6 +58,7 @@ const Invoices = () => {
                 <div
                   className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6"
                   key={index}
+                  onClick={()=>navigate("/reciept")}
                 >
                   <div className="flex gap-7 items-center">
                     <div>
@@ -102,10 +114,9 @@ const Invoices = () => {
       {showModal && (
         <div
           className="w-screen h-full bg-black/40 fixed top-0 left-0"
-          onClick={() => setShowModal(false)}
         >
           <Sidebar />
-          <div className="w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20">
+          <div className="w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20 overflow-auto">
             <div className="w-full flex flex-col gap-5">
               <span className="text-sm text-Billform font-bold">Bill Form</span>
               <form action="Street" className="flex flex-col gap-4">
@@ -320,17 +331,19 @@ const Invoices = () => {
                     <input
                       type="text"
                       className=" w-20 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
-                      value="0.0"
+                      value={qtyValue}
+                      onChange={handleChangeQty}
                     />
                     <input
                       type="text"
                       className=" w-20 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
-                      value="0.0"
+                      value={priceValue}
+                      onChange={handleChangePrice}
                     />
                     <input
                       type="text"
                       className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
-                      value="0.0"
+                      value={qtyValue*priceValue}
                     />
                     <div className="w-4 h-5">
                       <img src="/src/assets/icon-delete.svg" alt="" />
@@ -350,7 +363,10 @@ const Invoices = () => {
             </div>
             <div className="w-full flex justify-between items-center">
               <div>
-                <button className="h-12 rounded-3xl text-bill_button w-20 text-sm font-bold focus:border-black border-solid border-[1px]">
+                <button className="h-12 rounded-3xl text-bill_button w-20 text-sm font-bold focus:border-black border-solid border-[1px]"
+                onClick={()=>setShowModal(false)}
+                
+                >
                   Discard
                 </button>
               </div>
