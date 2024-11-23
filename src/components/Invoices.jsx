@@ -1,13 +1,18 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setInvoices } from "../features/invoicesSlice";
 const Invoices = () => {
   const [itemList, setItemList] = useState([]);
   const [qtyValue,setQtyValue] = useState(0.0);
+  const [dateVlaue,setDateValue] = useState("");
+  const [nameVlaue,setNameValue] = useState("");
+  const [totalVlaue,setTotalValue] = useState("");
   const [priceValue,setPriceValue] = useState(0.0);
   const [showModal, setShowModal] = useState(false);
   const { invoices } = useSelector((state) => state.invoices);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChangeQty = (event)=>{
@@ -16,7 +21,17 @@ const Invoices = () => {
   const handleChangePrice = (event)=>{
     setPriceValue(event.target.value)
   };
+  const handleChangeDate = (event)=>{
+    setDateValue(event.target.value)
+  };
+  const handleChangeName = (event)=>{
+    setNameValue(event.target.value)
+  };
+  const handleChangeTotal = (event)=>{
+    setTotalValue(event.target.value)
+  };
 
+console.log(nameVlaue);
   return (
     <>
       <div className="flex h-full w-screen">
@@ -56,7 +71,7 @@ const Invoices = () => {
             <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">
               {invoices.map((invoice, index) => (
                 <div
-                  className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6"
+                  className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 "
                   key={index}
                   onClick={()=>navigate("/reciept")}
                 >
@@ -75,7 +90,7 @@ const Invoices = () => {
                     </span>
                   </div>
                   <div className="flex gap-12 items-center">
-                    <p className="text-lg font-bold">{invoice.price}</p>
+                    <p className="text-lg font-bold">{`£ ${invoice.price}`}</p>
                     <div
                       className={`${
                         invoice.status === "paid" ? "bg-paid" : "bg-pending"
@@ -184,6 +199,8 @@ const Invoices = () => {
                 </label>
                 <input
                   required
+                  value={nameVlaue}
+                  onChange={handleChangeName}
                   type="text"
                   name="Client’s Name"
                   id="Client’s Name"
@@ -271,6 +288,8 @@ const Invoices = () => {
                   name="Invoice Date"
                   id="Invoice Date"
                   className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs rounded-md text-xs font-bold "
+                  value={dateVlaue}
+                  onChange={handleChangeDate}
                 />
               </form>
               <form action="Invoice Date" className="flex flex-col gap-4">
@@ -344,6 +363,7 @@ const Invoices = () => {
                       type="text"
                       className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
                       value={qtyValue*priceValue}
+                      onChange={handleChangeTotal}
                     />
                     <div className="w-4 h-5">
                       <img src="/src/assets/icon-delete.svg" alt="" />
@@ -374,7 +394,25 @@ const Invoices = () => {
                 <button className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black">
                   Save as Draft
                 </button>
-                <button className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold">
+                <button className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold"
+                // onClick={
+                //   ()=>{
+                //    dispatch(setInvoices((prev)=>{
+                //     return [ 
+                //       ...prev,
+                //       {
+                //         code : `${Math.random().toString(16).slice(2)}`,
+                //         date : `${dateVlaue}`,
+                //         bill_to : `${nameVlaue}`,
+                //         price : `${totalVlaue}`,
+                //         status : "pending"
+                //       }
+                //     ]
+                //    }))
+                //    setShowModal(false) 
+                //   }
+                // }
+                >
                   Save & Send
                 </button>
               </div>
