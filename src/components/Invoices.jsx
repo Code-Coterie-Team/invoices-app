@@ -1,18 +1,79 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setInvoices } from "../features/invoicesSlice";
+// import { setInvoices } from "../features/invoicesSlice";
+
+const generateRandomId = (length) => {  
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';  
+  let randomId = '';  
+  for (let i = 0; i < length; i++) {  
+      const randomIndex = Math.floor(Math.random() * characters.length);  
+      randomId += characters[randomIndex];  
+  }  
+  return randomId;  
+}; 
 const Invoices = () => {
+  const [invoices,setInvoices] = useState([
+    {
+      code : "RT3080",
+      date : "2021-8-18",
+      bill_to : "Jensen Huang",
+      price : "1800.9",
+      status : "paid"
+    },
+    {
+      code : "XM9141",
+      date : "2021-8-21",
+      bill_to : "Alex Grim",
+      price : "556",
+      status : "pending"
+    },
+    {
+      code : "RG0314",
+      date : "2021-9-24",
+      bill_to : "John Morrison",
+      price : "14002.33",
+      status : "paid"
+    },
+      {
+      code : "RT2080",
+      date : "2021-10-11",
+      bill_to : "Alysa Werner",
+      price : "102.04",
+      status : "pending"
+    },
+    {
+      code : "AA1449",
+      date : "2021-10-7",
+      bill_to : "Mellisa Clarke",
+      price : "4032.33",
+      status : "pending"
+    },
+    {
+      code : "TY9141",
+      date : "2021-10-01",
+      bill_to : "Thomas Wayne",
+      price : "6155.91",
+      status : "pending"
+    },
+    {
+      code : "FV2353",
+      date : "2021-11-05",
+      bill_to : "Anita Wainwright",
+      price : "3102.04",
+      status : "pending"
+    }
+  ])
   const [itemList, setItemList] = useState([]);
   const [qtyValue,setQtyValue] = useState(0.0);
+  const [priceValue,setPriceValue] = useState(0.0);
   const [dateVlaue,setDateValue] = useState("");
   const [nameVlaue,setNameValue] = useState("");
-  const [totalVlaue,setTotalValue] = useState("");
-  const [priceValue,setPriceValue] = useState(0.0);
+  const [totalVlaue,setTotalValue] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const { invoices } = useSelector((state) => state.invoices);
-  const dispatch = useDispatch();
+  // const { invoices } = useSelector((state) => state.invoices);
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChangeQty = (event)=>{
@@ -29,6 +90,11 @@ const Invoices = () => {
   };
   const handleChangeTotal = (event)=>{
     setTotalValue(event.target.value)
+  };
+  const resetForm = () => {
+    setTotalValue("");
+    setNameValue("");
+    setDateValue("");
   };
 
 console.log(nameVlaue);
@@ -362,8 +428,8 @@ console.log(nameVlaue);
                     <input
                       type="text"
                       className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
-                      value={qtyValue*priceValue}
-                      onChange={handleChangeTotal}
+                      value={priceValue*qtyValue}
+                      onChange={handleChangeDate}
                     />
                     <div className="w-4 h-5">
                       <img src="/src/assets/icon-delete.svg" alt="" />
@@ -395,23 +461,24 @@ console.log(nameVlaue);
                   Save as Draft
                 </button>
                 <button className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold"
-                // onClick={
-                //   ()=>{
-                //    dispatch(setInvoices((prev)=>{
-                //     return [ 
-                //       ...prev,
-                //       {
-                //         code : `${Math.random().toString(16).slice(2)}`,
-                //         date : `${dateVlaue}`,
-                //         bill_to : `${nameVlaue}`,
-                //         price : `${totalVlaue}`,
-                //         status : "pending"
-                //       }
-                //     ]
-                //    }))
-                //    setShowModal(false) 
-                //   }
-                // }
+                onClick={
+                  ()=>{
+                   setInvoices((prev)=>{
+                    return [ 
+                      ...prev,
+                      {
+                        code : generateRandomId(6),
+                        date : dateVlaue,
+                        bill_to : nameVlaue,
+                        price : totalVlaue,
+                        status : "pending"
+                      }
+                    ]
+                   })
+                   resetForm();
+                   setShowModal(false) 
+                  }
+                }
                 >
                   Save & Send
                 </button>
