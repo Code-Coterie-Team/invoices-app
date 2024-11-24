@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const invoicesSlice = createSlice( {
-    name : "modal",
+    name : "invoices",
     initialState: {
       invoices:[
         {

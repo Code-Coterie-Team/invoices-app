@@ -66,13 +66,15 @@ const Invoices = () => {
     }
   ])
   const [itemList, setItemList] = useState([]);
-  const [qtyValue,setQtyValue] = useState(0.0);
-  const [priceValue,setPriceValue] = useState(0.0);
+  const [qtyValue,setQtyValue] = useState(0);
+  const [priceValue,setPriceValue] = useState(0);
   const [dateVlaue,setDateValue] = useState("");
   const [nameVlaue,setNameValue] = useState("");
-  const [totalVlaue,setTotalValue] = useState(0);
+  const [totalVlaue,setTotalValue] = useState(priceValue * qtyValue);
   const [showModal, setShowModal] = useState(false);
   // const { invoices } = useSelector((state) => state.invoices);
+  const [selectRow,setSelectRow] = useState(null);
+  // console.log(invoices);
   // const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -96,8 +98,17 @@ const Invoices = () => {
     setNameValue("");
     setDateValue("");
   };
+  const handleRemoveLastItem = () => {   
+    if (itemList.length > 0) {  
+      setItemList(itemList.slice(0, itemList.length - 1));  
+    }  
+  }; 
+  const handleSelectRow = (invoice) =>{
+    setSelectRow(invoice);
+    navigate("/reciept")
+    console.log(invoice);
+  }
 
-console.log(nameVlaue);
   return (
     <>
       <div className="flex h-full w-screen">
@@ -111,8 +122,8 @@ console.log(nameVlaue);
                   There are 7 total invoices
                 </span>
               </div>
-              <div className="flex gap-11 items-center">
-                <div className="flex gap-2 ">
+              <div className="flex gap-4 items-center justify-center relative">
+               <div className="flex gap-2 ">
                   <p className="text-sm font-bold">Filter by status</p>
                   <div className=" w-3">
                     <img
@@ -120,11 +131,12 @@ console.log(nameVlaue);
                       alt=""
                     />
                   </div>
-                </div>
+               </div>
                 <button
-                  className="flex gap-3 bg-button p-2 rounded-3xl items-center"
+                  className="flex gap-3 bg-button p-2 rounded-3xl items-center hover:bg-violet-400"
                   onClick={() => setShowModal(true)}
                 >
+                  
                   <div className="w-7 h-7 rounded-full bg-white">
                     <img src="/src/assets/download.png" alt="" />
                   </div>
@@ -132,6 +144,20 @@ console.log(nameVlaue);
                     New Invoice
                   </span>
                 </button>
+                <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md">
+                  <div className="flex items-center w-full gap-3">
+                    <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat" ></div>
+                    <p className="text-sm font-medium text-black">Draft</p>
+                  </div>
+                  <div className="flex items-center justify-start w-full gap-3">
+                    <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat" ></div>
+                    <p className="text-sm font-medium text-black">Pending</p>
+                  </div>
+                  <div className="flex items-center justify-start w-full gap-3">
+                    <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat" ></div>
+                    <p className="text-sm font-medium text-black">Paid</p>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">
@@ -139,7 +165,7 @@ console.log(nameVlaue);
                 <div
                   className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 "
                   key={index}
-                  onClick={()=>navigate("/reciept")}
+                  onClick={()=>handleSelectRow(invoice)}
                 >
                   <div className="flex gap-7 items-center">
                     <div>
@@ -158,22 +184,22 @@ console.log(nameVlaue);
                   <div className="flex gap-12 items-center">
                     <p className="text-lg font-bold">{`£ ${invoice.price}`}</p>
                     <div
-                      className={`${
-                        invoice.status === "paid" ? "bg-paid" : "bg-pending"
-                      } rounded-lg p-2 w-24 flex gap-3 items-center`}
+                      className={`${  
+                      invoice.status === "paid" ? "bg-paid" :  
+                      invoice.status === "pending" ? "bg-pending" : "bg-gray-200"} rounded-lg p-2 w-24 flex gap-3 items-center`}
                     >
                       <div
                         className={`${
                           invoice.status === "paid"
-                            ? "bg-paid_text"
-                            : "bg-pending_text"
+                            ? "bg-paid_text": 
+                            invoice.status === "pending" ? "bg-pending_text" : "bg-black"
                         } w-2 h-2 rounded-full`}
                       ></div>
                       <span
                         className={`${
                           invoice.status === "paid"
-                            ? "text-paid_text"
-                            : "text-pending_text"
+                            ? "text-paid_text":
+                            invoice.status === "pending" ? "text-pending_text" : "text-black"
                         } text-xs font-medium`}
                       >
                         {invoice.status}
@@ -428,11 +454,11 @@ console.log(nameVlaue);
                     <input
                       type="text"
                       className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
-                      value={priceValue*qtyValue}
-                      onChange={handleChangeDate}
+                      value={totalVlaue}
+                      onChange={handleChangeTotal}
                     />
                     <div className="w-4 h-5">
-                      <img src="/src/assets/icon-delete.svg" alt="" />
+                      <img src="/src/assets/icon-delete.svg" alt="" className="hover:bg-red-600" onClick={handleRemoveLastItem} />
                     </div>
                   </div>
                 ))}
@@ -457,22 +483,43 @@ console.log(nameVlaue);
                 </button>
               </div>
               <div className="flex gap-8">
-                <button className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black">
+                <button className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black"
+                 onClick={
+                  ()=>{
+                   setInvoices((prev)=>{
+                    return [ 
+                      
+                      {
+                        code : generateRandomId(6),
+                        date : dateVlaue,
+                        bill_to : nameVlaue,
+                        price : totalVlaue,
+                        status : "draft"
+                      },
+                      ...prev
+                    ]
+                   })
+                   resetForm();
+                   setShowModal(false) 
+                  }
+                }
+                >
                   Save as Draft
                 </button>
                 <button className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold"
                 onClick={
                   ()=>{
-                   setInvoices((prev)=>{
+                  setInvoices((prev)=>{
                     return [ 
-                      ...prev,
+                      
                       {
                         code : generateRandomId(6),
                         date : dateVlaue,
                         bill_to : nameVlaue,
                         price : totalVlaue,
                         status : "pending"
-                      }
+                      },
+                      ...prev
                     ]
                    })
                    resetForm();
