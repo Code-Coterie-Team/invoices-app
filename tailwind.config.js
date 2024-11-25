@@ -23,7 +23,9 @@ export default {
         Billform : "rgb(124, 93, 250)",
         bill_button : "rgb(126, 136, 195)",
         savedraft_button:"rgb(55, 59, 83)",
-        save_button:"#E5DFFE"
+        save_button:"#E5DFFE",
+        delete_button :"rgb(236, 87, 87)",
+        mark_button:"rgb(146, 119, 255)"
       },
       width:{
         inputs: "570px",

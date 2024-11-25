@@ -1,116 +1,224 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setSelectRow } from "../features/selectRowSlice";
 
-const generateRandomId = (length) => {  
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';  
-  let randomId = '';  
-  for (let i = 0; i < length; i++) {  
-      const randomIndex = Math.floor(Math.random() * characters.length);  
-      randomId += characters[randomIndex];  
-  }  
-  return randomId;  
-}; 
+const generateRandomId = (length) => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let randomId = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomId += characters[randomIndex];
+  }
+  return randomId;
+};
 const Invoices = () => {
-  const [invoices,setInvoices] = useState([
+  const [invoices, setInvoices] = useState([
     {
-      code : "RT3080",
-      date : "2021-8-18",
-      bill_to : "Jensen Huang",
-      price : "1800.9",
-      status : "paid"
+      code: "RT3080",
+      date: "2021-8-18",
+      bill_to: "Jensen Huang",
+      price: "1800.9",
+      status: "paid",
+      street: "19 Union Terrace",
+      City: "London",
+      Post_code: "E1 3EZ",
+      Country: "United Kingdom",
+      Email: "jensenh@mail.com",
+      street_Client: "106 Kendell Street",
+      City_Client: "Sharrington",
+      Post_code_Client: "NR24 5WQ",
+      Country_Client: "United Kingdom",
+      item_name: "Web Design",
+      qty: "1",
+      price_item: "£ 6155.91",
+      total: "£ 6155.91",
     },
     {
-      code : "XM9141",
-      date : "2021-8-21",
-      bill_to : "Alex Grim",
-      price : "556",
-      status : "pending"
+      code: "XM9141",
+      date: "2021-8-21",
+      bill_to: "Alex Grim",
+      price: "556",
+      status: "pending",
+      street: "19 Union Terrace",
+      City: "London",
+      Post_code: "E1 3EZ",
+      Country: "United Kingdom",
+      Email: "alexgrim@mail.com",
+      street_Client: "84 Church Way",
+      City_Client: "Bradford",
+      Post_code_Client: "BD1 9PB",
+      Country_Client: "United Kingdom",
+      item_name: "Brand Guidelines",
+      qty: "1",
+      price_item: "£ 1800.9",
+      total: "£ 1800.9",
     },
     {
-      code : "RG0314",
-      date : "2021-9-24",
-      bill_to : "John Morrison",
-      price : "14002.33",
-      status : "paid"
-    },
-      {
-      code : "RT2080",
-      date : "2021-10-11",
-      bill_to : "Alysa Werner",
-      price : "102.04",
-      status : "pending"
-    },
-    {
-      code : "AA1449",
-      date : "2021-10-7",
-      bill_to : "Mellisa Clarke",
-      price : "4032.33",
-      status : "pending"
-    },
-    {
-      code : "TY9141",
-      date : "2021-10-01",
-      bill_to : "Thomas Wayne",
-      price : "6155.91",
-      status : "pending"
+      code: "RG0314",
+      date: "2021-9-24",
+      bill_to: "John Morrison",
+      price: "14002.33",
+      status: "paid",
+      street: "19 Union Terrace",
+      City: "London",
+      Post_code: "E1 3EZ",
+      Country: "United Kingdom",
+      Email: "jm@myco.com",
+      street_Client: "79 Dover Road",
+      City_Client: "Westhall",
+      Post_code_Client: "IP19 3PF",
+      Country_Client: "United Kingdom",
+      item_name: "Banner Design",
+      qty: "1",
+      price_item: "£ 156",
+      total: "£ 156",
     },
     {
-      code : "FV2353",
-      date : "2021-11-05",
-      bill_to : "Anita Wainwright",
-      price : "3102.04",
-      status : "pending"
-    }
-  ])
+      code: "RT2080",
+      date: "2021-10-11",
+      bill_to: "Alysa Werner",
+      price: "102.04",
+      status: "pending",
+      street: "19 Union Terrace",
+      City: "London",
+      Post_code: "E1 3EZ",
+      Country: "United Kingdom",
+      Email: "alysa@email.co.uk",
+      street_Client: "63 Warwick Road",
+      City_Client: "Carlisle",
+      Post_code_Client: "CA20 2TG",
+      Country_Client: "United Kingdom",
+      item_name: "Logo Sketches",
+      qty: "1",
+      price_item: "£ 102.04",
+      total: "£ 102.04",
+    },
+    {
+      code: "AA1449",
+      date: "2021-10-7",
+      bill_to: "Mellisa Clarke",
+      price: "4032.33",
+      status: "pending",
+      street: "19 Union Terrace",
+      City: "London",
+      Post_code: "E1 3EZ",
+      Country: "United Kingdom",
+      Email: "mellisa.clarke@example.com",
+      street_Client: "46 Abbey Row",
+      City_Client: "Cambridge",
+      Post_code_Client: "CB5 6EG",
+      Country_Client: "United Kingdom",
+      item_name: "New Logo",
+      qty: "2",
+      price_item: "£ 1532.33",
+      total: "£ 3064",
+    },
+    {
+      code: "TY9141",
+      date: "2021-10-01",
+      bill_to: "Thomas Wayne",
+      price: "6155.91",
+      status: "pending",
+      street: "19 Union Terrace",
+      City: "London",
+      Post_code: "E1 3EZ",
+      Country: "United Kingdom",
+      Email: "thomas@dc.com",
+      street_Client: "",
+      City_Client: "Gotham",
+      Post_code_Client: "60457",
+      Country_Client: "United States of America",
+      item_name: "Brand Guidelines",
+      qty: "1",
+      price_item: "£ 2500",
+      total: "£ 2500",
+    },
+    {
+      code: "FV2353",
+      date: "2021-11-05",
+      bill_to: "Anita Wainwright",
+      price: "3102.04",
+      status: "pending",
+      street: "19 Union Terrace",
+      City: "London",
+      Post_code: "E1 3EZ",
+      Country: "United Kingdom",
+    },
+  ]);
+  console.log(invoices);
   const [itemList, setItemList] = useState([]);
-  const [qtyValue,setQtyValue] = useState(0);
-  const [priceValue,setPriceValue] = useState(0);
-  const [dateVlaue,setDateValue] = useState("");
-  const [nameVlaue,setNameValue] = useState("");
-  const [totalVlaue,setTotalValue] = useState(priceValue * qtyValue);
+  const [qtyValue, setQtyValue] = useState(0);
+  const [priceValue, setPriceValue] = useState(0);
+  const [dateVlaue, setDateValue] = useState("");
+  const [nameItemVlaue, setNameItemValue] = useState("");
+  const [streetClientVlaue, setstreetClientValue] = useState("");
+  const [emailVlaue, setEmailValue] = useState("");
+  const [nameVlaue, setNameValue] = useState("");
+  const [cityVlaue, setCityValue] = useState("");
+  const [postCodeVlaue, setPostCodeValue] = useState("");
+  const [countryVlaue, setCountryValue] = useState("");
+  const [totalVlaue, setTotalValue] = useState(priceValue * qtyValue);
   const [showModal, setShowModal] = useState(false);
-  const [showFilter,setShowFilter] = useState(false)
+  const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const handleChangeQty = (event)=>{
+  const handleChangeQty = (event) => {
     setQtyValue(event.target.value);
   };
-  const handleChangePrice = (event)=>{
-    setPriceValue(event.target.value)
+  const handleChangePrice = (event) => {
+    setPriceValue(event.target.value);
   };
-  const handleChangeDate = (event)=>{
-    setDateValue(event.target.value)
+  const handleChangeDate = (event) => {
+    setDateValue(event.target.value);
   };
-  const handleChangeName = (event)=>{
-    setNameValue(event.target.value)
+  const handleChangeName = (event) => {
+    setNameValue(event.target.value);
   };
-  const handleChangeTotal = (event)=>{
-    setTotalValue(event.target.value)
+  const handleChangeTotal = (event) => {
+    setTotalValue(event.target.value);
+  };
+  const handleChangeEmail = (event) => {
+    setEmailValue(event.target.value);
+  };
+  const handleChangeStreet = (event) => {
+    setstreetClientValue(event.target.value);
+  };
+  const handleChangeCity = (event) => {
+    setCityValue(event.target.value);
+  };
+  const handleChangePostCode = (event) => {
+    setPostCodeValue(event.target.value);
+  };
+  const handleChangeCountry = (event) => {
+    setCountryValue(event.target.value);
+  };
+  const handleChangeItemName = (event) => {
+    setNameItemValue(event.target.value);
   };
   const resetForm = () => {
     setTotalValue("");
     setNameValue("");
     setDateValue("");
   };
-  const handleRemoveLastItem = () => {   
-    if (itemList.length > 0) {  
-      setItemList(itemList.slice(0, itemList.length - 1));  
-    }  
-  }; 
-  const handleSelectRow = (invoice) =>{
+  const handleRemoveLastItem = () => {
+    if (itemList.length > 0) {
+      setItemList(itemList.slice(0, itemList.length - 1));
+    }
+  };
+  const handleSelectRow = (invoice) => {
     dispatch(setSelectRow(invoice));
-    navigate("/reciept")
+    navigate("/reciept");
     console.log(invoice);
-  }
+  };
 
-  const toggle = ()=>{
-    setShowFilter(currentState => !currentState)
-  }
+  const toggle = () => {
+    setShowFilter((currentState) => !currentState);
+  };
 
   return (
     <>
@@ -126,21 +234,20 @@ const Invoices = () => {
                 </span>
               </div>
               <div className="flex gap-4 items-center justify-center relative">
-               <div className="flex gap-2 ">
+                <div className="flex gap-2 ">
                   <p className="text-sm font-bold">Filter by status</p>
                   <div className=" w-3">
                     <img
                       src="/src/assets/icon-arrow-down.a6ed7bfffecda935c666.svg"
                       alt=""
-                      onClick={()=>toggle()}
+                      onClick={() => toggle()}
                     />
                   </div>
-               </div>
+                </div>
                 <button
                   className="flex gap-3 bg-button p-2 rounded-3xl items-center hover:bg-violet-400"
                   onClick={() => setShowModal(true)}
                 >
-                  
                   <div className="w-7 h-7 rounded-full bg-white">
                     <img src="/src/assets/download.png" alt="" />
                   </div>
@@ -148,21 +255,22 @@ const Invoices = () => {
                     New Invoice
                   </span>
                 </button>
-                {showFilter &&                 <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md">
-                  <div className="flex items-center w-full gap-3">
-                    <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat" ></div>
-                    <p className="text-sm font-medium text-black">Draft</p>
+                {showFilter && (
+                  <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md">
+                    <div className="flex items-center w-full gap-3">
+                      <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
+                      <p className="text-sm font-medium text-black">Draft</p>
+                    </div>
+                    <div className="flex items-center justify-start w-full gap-3">
+                      <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
+                      <p className="text-sm font-medium text-black">Pending</p>
+                    </div>
+                    <div className="flex items-center justify-start w-full gap-3">
+                      <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
+                      <p className="text-sm font-medium text-black">Paid</p>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-start w-full gap-3">
-                    <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat" ></div>
-                    <p className="text-sm font-medium text-black">Pending</p>
-                  </div>
-                  <div className="flex items-center justify-start w-full gap-3">
-                    <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat" ></div>
-                    <p className="text-sm font-medium text-black">Paid</p>
-                  </div>
-                </div>}
-
+                )}
               </div>
             </div>
             <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">
@@ -170,7 +278,7 @@ const Invoices = () => {
                 <div
                   className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 "
                   key={index}
-                  onClick={()=>handleSelectRow(invoice)}
+                  onClick={() => handleSelectRow(invoice)}
                 >
                   <div className="flex gap-7 items-center">
                     <div>
@@ -189,22 +297,30 @@ const Invoices = () => {
                   <div className="flex gap-12 items-center">
                     <p className="text-lg font-bold">{`£ ${invoice.price}`}</p>
                     <div
-                      className={`${  
-                      invoice.status === "paid" ? "bg-paid" :  
-                      invoice.status === "pending" ? "bg-pending" : "bg-gray-200"} rounded-lg p-2 w-24 flex gap-3 items-center`}
+                      className={`${
+                        invoice.status === "paid"
+                          ? "bg-paid"
+                          : invoice.status === "pending"
+                          ? "bg-pending"
+                          : "bg-gray-200"
+                      } rounded-lg p-2 w-24 flex gap-3 items-center`}
                     >
                       <div
                         className={`${
                           invoice.status === "paid"
-                            ? "bg-paid_text": 
-                            invoice.status === "pending" ? "bg-pending_text" : "bg-black"
+                            ? "bg-paid_text"
+                            : invoice.status === "pending"
+                            ? "bg-pending_text"
+                            : "bg-black"
                         } w-2 h-2 rounded-full`}
                       ></div>
                       <span
                         className={`${
                           invoice.status === "paid"
-                            ? "text-paid_text":
-                            invoice.status === "pending" ? "text-pending_text" : "text-black"
+                            ? "text-paid_text"
+                            : invoice.status === "pending"
+                            ? "text-pending_text"
+                            : "text-black"
                         } text-xs font-medium`}
                       >
                         {invoice.status}
@@ -224,9 +340,7 @@ const Invoices = () => {
         </div>
       </div>
       {showModal && (
-        <div
-          className="w-screen h-full bg-black/40 fixed top-0 left-0"
-        >
+        <div className="w-screen h-full bg-black/40 fixed top-0 left-0">
           <Sidebar />
           <div className="w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20 overflow-auto">
             <div className="w-full flex flex-col gap-5">
@@ -315,6 +429,8 @@ const Invoices = () => {
                   required
                   placeholder="e.g.email@example.com"
                   type="email"
+                  value={emailVlaue}
+                  onChange={handleChangeEmail}
                   name="Client’s Email"
                   id="Client’s Email"
                   className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold "
@@ -329,6 +445,8 @@ const Invoices = () => {
                   type="text"
                   name="Street"
                   id="Street"
+                  value={streetClientVlaue}
+                  onChange={handleChangeStreet}
                   className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold "
                 />
               </form>
@@ -338,6 +456,8 @@ const Invoices = () => {
                     City
                   </label>
                   <input
+                    value={cityVlaue}
+                    onChange={handleChangeCity}
                     required
                     type="text"
                     name="City"
@@ -353,6 +473,8 @@ const Invoices = () => {
                     Post Code
                   </label>
                   <input
+                    value={postCodeVlaue}
+                    onChange={handleChangePostCode}
                     required
                     type="text"
                     name="Post Code"
@@ -365,6 +487,8 @@ const Invoices = () => {
                     Country
                   </label>
                   <input
+                    value={countryVlaue}
+                    onChange={handleChangeCountry}
                     required
                     type="text"
                     name="Country"
@@ -442,7 +566,8 @@ const Invoices = () => {
                     <input
                       type="text"
                       className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
-                      value="New Item"
+                      value={nameItemVlaue}
+                      onChange={handleChangeItemName}
                     />
                     <input
                       type="text"
@@ -463,7 +588,12 @@ const Invoices = () => {
                       onChange={handleChangeTotal}
                     />
                     <div className="w-4 h-5">
-                      <img src="/src/assets/icon-delete.svg" alt="" className="hover:bg-red-600" onClick={handleRemoveLastItem} />
+                      <img
+                        src="/src/assets/icon-delete.svg"
+                        alt=""
+                        className="hover:bg-red-600"
+                        onClick={handleRemoveLastItem}
+                      />
                     </div>
                   </div>
                 ))}
@@ -480,57 +610,75 @@ const Invoices = () => {
             </div>
             <div className="w-full flex justify-between items-center">
               <div>
-                <button className="h-12 rounded-3xl text-bill_button w-20 text-sm font-bold focus:border-black border-solid border-[1px]"
-                onClick={()=>setShowModal(false)}
-                
+                <button
+                  className="h-12 rounded-3xl text-bill_button w-20 text-sm font-bold focus:border-black border-solid border-[1px]"
+                  onClick={() => setShowModal(false)}
                 >
                   Discard
                 </button>
               </div>
               <div className="flex gap-8">
-                <button className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black"
-                 onClick={
-                  ()=>{
-                   setInvoices((prev)=>{
-                    return [ 
-                      
-                      {
-                        code : generateRandomId(6),
-                        date : dateVlaue,
-                        bill_to : nameVlaue,
-                        price : totalVlaue,
-                        status : "draft"
-                      },
-                      ...prev
-                    ]
-                   })
-                   resetForm();
-                   setShowModal(false) 
-                  }
-                }
+                <button
+                  className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black"
+                  onClick={() => {
+                    setInvoices((prev) => {
+                      return [
+                        {
+                          code: generateRandomId(6),
+                          date: dateVlaue,
+                          bill_to: nameVlaue,
+                          price: totalVlaue,
+                          status: "draft",
+                          street: "19 Union Terrace",
+                          City: "London",
+                          Post_code: "E1 3EZ",
+                          Country: "United Kingdom",
+                          Email: emailVlaue,
+                          street_Client: streetClientVlaue,
+                          City_Client: cityVlaue,
+                          Post_code_Client: postCodeVlaue,
+                          Country_Client: countryVlaue,
+                        },
+                        ...prev,
+                      ];
+                    });
+                    resetForm();
+                    setShowModal(false);
+                  }}
                 >
                   Save as Draft
                 </button>
-                <button className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold"
-                onClick={
-                  ()=>{
-                  setInvoices((prev)=>{
-                    return [ 
-                      
-                      {
-                        code : generateRandomId(6),
-                        date : dateVlaue,
-                        bill_to : nameVlaue,
-                        price : totalVlaue,
-                        status : "pending"
-                      },
-                      ...prev
-                    ]
-                   })
-                   resetForm();
-                   setShowModal(false) 
-                  }
-                }
+                <button
+                  className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold"
+                  onClick={() => {
+                    setInvoices((prev) => {
+                      return [
+                        {
+                          code: generateRandomId(6),
+                          date: dateVlaue,
+                          bill_to: nameVlaue,
+                          price: totalVlaue,
+                          status: "pending",
+                          street: "19 Union Terrace",
+                          City: "London",
+                          Post_code: "E1 3EZ",
+                          Country: "United Kingdom",
+                          Email: emailVlaue,
+                          street_Client: streetClientVlaue,
+                          City_Client: cityVlaue,
+                          Post_code_Client: postCodeVlaue,
+                          Country_Client: countryVlaue,
+                          item_name: nameItemVlaue,
+                          qty: qtyValue,
+                          price_item: priceValue,
+                          total: totalVlaue,
+                        },
+                        ...prev,
+                      ];
+                    });
+                    resetForm();
+                    setShowModal(false);
+                  }}
                 >
                   Save & Send
                 </button>
