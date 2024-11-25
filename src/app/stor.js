@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import invoicesSlice from "../features/invoicesSlice";
+import selectRowSlice from "../features/selectRowSlice";
 
 const store = configureStore({
     reducer:{
-        invoices : invoicesSlice,
+        selectRow : selectRowSlice,
     }
 })
 export default store;

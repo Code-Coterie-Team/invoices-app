@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { setInvoices } from "../features/invoicesSlice";
+import { setSelectRow } from "../features/selectRowSlice";
 
 const generateRandomId = (length) => {  
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';  
@@ -72,10 +72,9 @@ const Invoices = () => {
   const [nameVlaue,setNameValue] = useState("");
   const [totalVlaue,setTotalValue] = useState(priceValue * qtyValue);
   const [showModal, setShowModal] = useState(false);
-  // const { invoices } = useSelector((state) => state.invoices);
-  const [selectRow,setSelectRow] = useState(null);
-  // console.log(invoices);
-  // const dispatch = useDispatch();
+  const [showFilter,setShowFilter] = useState(false)
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const handleChangeQty = (event)=>{
@@ -104,9 +103,13 @@ const Invoices = () => {
     }  
   }; 
   const handleSelectRow = (invoice) =>{
-    setSelectRow(invoice);
+    dispatch(setSelectRow(invoice));
     navigate("/reciept")
     console.log(invoice);
+  }
+
+  const toggle = ()=>{
+    setShowFilter(currentState => !currentState)
   }
 
   return (
@@ -129,6 +132,7 @@ const Invoices = () => {
                     <img
                       src="/src/assets/icon-arrow-down.a6ed7bfffecda935c666.svg"
                       alt=""
+                      onClick={()=>toggle()}
                     />
                   </div>
                </div>
@@ -144,7 +148,7 @@ const Invoices = () => {
                     New Invoice
                   </span>
                 </button>
-                <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md">
+                {showFilter &&                 <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md">
                   <div className="flex items-center w-full gap-3">
                     <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat" ></div>
                     <p className="text-sm font-medium text-black">Draft</p>
@@ -157,7 +161,8 @@ const Invoices = () => {
                     <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat" ></div>
                     <p className="text-sm font-medium text-black">Paid</p>
                   </div>
-                </div>
+                </div>}
+
               </div>
             </div>
             <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">

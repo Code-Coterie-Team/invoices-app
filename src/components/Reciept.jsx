@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Reciept = () => {
   const navigate = useNavigate();
 
-  const { invoices } = useSelector((state) => state.invoices);
+const { selectRow } = useSelector((state) => state.selectRow);
   return (
     <div className="flex h-full w-screen">
       <Sidebar />
@@ -24,10 +24,10 @@ const Reciept = () => {
           <div className="w-full p-5 bg-white rounded-md flex justify-between">
             <div className="flex gap-3">
               <span className="text-sm text-information">Status</span>
-              <div className={`${invoices.status === "paid" ? "bg-paid" : "bg-pending"} rounded-lg p-2 w-24 flex gap-3 items-center`}>
-                      <div className={`${invoices.status === "paid"? "bg-paid_text": "bg-pending_text"} w-2 h-2 rounded-full`}></div>
-                      <span className={`${invoices.status === "paid"? "text-paid_text": "text-pending_text"} text-xs font-medium`}>
-                        {invoices.status}
+              <div className={`${selectRow.status === "paid" ? "bg-paid" : "bg-pending"} rounded-lg p-2 w-24 flex gap-3 items-center`}>
+                      <div className={`${selectRow.status === "paid"? "bg-paid_text": "bg-pending_text"} w-2 h-2 rounded-full`}></div>
+                      <span className={`${selectRow.status === "paid"? "text-paid_text": "text-pending_text"} text-xs font-medium`}>
+                        {selectRow.status}
                       </span>
                     </div>
             </div>
