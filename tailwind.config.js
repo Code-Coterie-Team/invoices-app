@@ -25,7 +25,8 @@ export default {
         savedraft_button:"rgb(55, 59, 83)",
         save_button:"#E5DFFE",
         delete_button :"rgb(236, 87, 87)",
-        mark_button:"rgb(146, 119, 255)"
+        mark_button:"rgb(146, 119, 255)",
+        amount : "#373b53"
       },
       width:{
         inputs: "570px",

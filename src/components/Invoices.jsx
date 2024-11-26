@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setSelectRow } from "../features/selectRowSlice";
+// import { setItemList } from "../features/itemSlice";
 
 const generateRandomId = (length) => {
   const characters =
@@ -33,8 +34,8 @@ const Invoices = () => {
       Country_Client: "United Kingdom",
       item_name: "Web Design",
       qty: "1",
-      price_item: "£ 6155.91",
-      total: "£ 6155.91",
+      price_item: " 6155.91",
+      total: " 6155.91",
     },
     {
       code: "XM9141",
@@ -53,8 +54,8 @@ const Invoices = () => {
       Country_Client: "United Kingdom",
       item_name: "Brand Guidelines",
       qty: "1",
-      price_item: "£ 1800.9",
-      total: "£ 1800.9",
+      price_item: " 1800.9",
+      total: " 1800.9",
     },
     {
       code: "RG0314",
@@ -73,8 +74,8 @@ const Invoices = () => {
       Country_Client: "United Kingdom",
       item_name: "Banner Design",
       qty: "1",
-      price_item: "£ 156",
-      total: "£ 156",
+      price_item: "  156",
+      total: "  156",
     },
     {
       code: "RT2080",
@@ -93,8 +94,8 @@ const Invoices = () => {
       Country_Client: "United Kingdom",
       item_name: "Logo Sketches",
       qty: "1",
-      price_item: "£ 102.04",
-      total: "£ 102.04",
+      price_item: "  102.04",
+      total: "  102.04",
     },
     {
       code: "AA1449",
@@ -113,8 +114,8 @@ const Invoices = () => {
       Country_Client: "United Kingdom",
       item_name: "New Logo",
       qty: "2",
-      price_item: "£ 1532.33",
-      total: "£ 3064",
+      price_item: "  1532.33",
+      total: "  3064",
     },
     {
       code: "TY9141",
@@ -133,8 +134,8 @@ const Invoices = () => {
       Country_Client: "United States of America",
       item_name: "Brand Guidelines",
       qty: "1",
-      price_item: "£ 2500",
-      total: "£ 2500",
+      price_item: "  2500",
+      total: "  2500",
     },
     {
       code: "FV2353",
@@ -150,6 +151,7 @@ const Invoices = () => {
   ]);
   console.log(invoices);
   const [itemList, setItemList] = useState([]);
+  // const { itemList } = useSelector((state) => state.itemList);
   const [qtyValue, setQtyValue] = useState(0);
   const [priceValue, setPriceValue] = useState(0);
   const [dateVlaue, setDateValue] = useState("");
@@ -276,7 +278,7 @@ const Invoices = () => {
             <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">
               {invoices.map((invoice, index) => (
                 <div
-                  className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 "
+                  className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 hover:border-violet-800 hover:border-solid hover:border-[1px] "
                   key={index}
                   onClick={() => handleSelectRow(invoice)}
                 >
@@ -623,6 +625,7 @@ const Invoices = () => {
                   onClick={() => {
                     setInvoices((prev) => {
                       return [
+                        ...prev,
                         {
                           code: generateRandomId(6),
                           date: dateVlaue,
@@ -639,7 +642,7 @@ const Invoices = () => {
                           Post_code_Client: postCodeVlaue,
                           Country_Client: countryVlaue,
                         },
-                        ...prev,
+
                       ];
                     });
                     resetForm();
@@ -653,6 +656,7 @@ const Invoices = () => {
                   onClick={() => {
                     setInvoices((prev) => {
                       return [
+                        ...prev,
                         {
                           code: generateRandomId(6),
                           date: dateVlaue,
@@ -673,7 +677,6 @@ const Invoices = () => {
                           price_item: priceValue,
                           total: totalVlaue,
                         },
-                        ...prev,
                       ];
                     });
                     resetForm();

@@ -1,16 +1,26 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
+import { setSelectRow } from "../features/selectRowSlice";
+import { useState } from "react";
 
 const Reciept = () => {
   const navigate = useNavigate();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const { selectRow } = useSelector((state) => state.selectRow);
+  const dispatch = useDispatch();
+
+  const markAsPaid = () => {
+    dispatch(setSelectRow({ ...selectRow, status: "paid" }));
+    navigate("/");
+  };
+
   return (
     <div className="flex h-full w-screen">
       <Sidebar />
       <div className="w-screen h-full bg-invoices flex justify-center">
-        <div className="flex flex-col w-7/12 gap-16 h-screen p-16">
+        <div className="flex flex-col w-7/12 gap-6 h-screen p-16">
           <button
             className="flex gap-10 items-center"
             onClick={() => navigate("/")}
@@ -51,28 +61,42 @@ const Reciept = () => {
               </div>
             </div>
             <div className="flex gap-9 p-2 items-center">
-              <button className="w-20 text-[#7e88c3] text-sm font-bold rounded-3xl hover:bg-violet-200 ">
+              <button className="w-20 text-[#7e88c3] text-sm font-bold rounded-3xl hover:bg-violet-200  p-2">
                 Edit
               </button>
-              <button className="w-24 bg-delete_button rounded-3xl p-2 hover:bg-[#ff9797] text-white text-sm font-bold">
+              <button
+                className="w-24 bg-delete_button rounded-3xl p-2 hover:bg-[#ff9797] text-white text-sm font-bold"
+                onClick={()=>setShowDeleteModal(true)}
+              >
                 Delete
               </button>
-              <button className="w-28 p-2 bg-mark_button rounded-3xl text-white text-sm font-bold hover:bg-[#b9a8fe]">
+              <button
+                className="w-28 p-2 bg-mark_button rounded-3xl text-white text-sm font-bold hover:bg-[#b9a8fe]"
+                onClick={markAsPaid}
+              >
                 Mark as Paid
               </button>
             </div>
           </div>
-          <div className="flex flex-col justify-center p-8 gap-10 bg-white w-full rounded-md items-start h-screen">
+          <div className="w-full h-full bg-white rounded-lg flex flex-col justify-between items-center py-8 px-6 gap-4">
             <div className="flex justify-between w-full">
               <div className="flex flex-col justify-center gap-3">
                 <p className="text-lg font-bold">{selectRow.code}</p>
                 <p className="text-information text-base">Re-branding</p>
               </div>
               <div className="flex flex-col justify-center gap-2">
-                <p className="text-information text-sm">{selectRow.street_Client},</p>
-                <p className="text-information text-sm">{selectRow.City_Client},</p>
-                <p className="text-information text-sm">{selectRow.Post_code_Client},</p>
-                <p className="text-information text-sm">{selectRow.Country_Client},</p>
+                <p className="text-information text-sm">
+                  {selectRow.street_Client},
+                </p>
+                <p className="text-information text-sm">
+                  {selectRow.City_Client},
+                </p>
+                <p className="text-information text-sm">
+                  {selectRow.Post_code_Client},
+                </p>
+                <p className="text-information text-sm">
+                  {selectRow.Country_Client},
+                </p>
               </div>
             </div>
             <div className="flex gap-28 w-full items-start justify-start">
@@ -91,10 +115,18 @@ const Reciept = () => {
                   <p className="text-information text-sm">Bill To</p>
                   <p className="text-base font-bold">{selectRow.bill_to}</p>
                   <div className="flex flex-col  justify-center">
-                    <p className="text-information text-base">{selectRow.street},</p>
-                    <p className="text-information text-base">{selectRow.City},</p>
-                    <p className="text-information text-base">{selectRow.Post_code},</p>
-                    <p className="text-information text-base">{selectRow.Country},</p>
+                    <p className="text-information text-base">
+                      {selectRow.street},
+                    </p>
+                    <p className="text-information text-base">
+                      {selectRow.City},
+                    </p>
+                    <p className="text-information text-base">
+                      {selectRow.Post_code},
+                    </p>
+                    <p className="text-information text-base">
+                      {selectRow.Country},
+                    </p>
                   </div>
                 </div>
               </div>
@@ -104,21 +136,51 @@ const Reciept = () => {
               </div>
             </div>
             <div className="flex flex-col justify-center p-8 relative bg-[#f9fafe] items-center w-full">
-              <ul className="flex justify-between list-none items-center">
-                <li className="flex flex-col gap-8 relative justify-center">
-                  <p></p>
-                  <p></p>
-                  <p></p>
+              <ul className="flex justify-between list-none w-full">
+                <li className="flex flex-col gap-8 justify-center items-start">
+                  <p className="text-information text-sm">Item Name</p>
+                  <p className="text-sm font-bold">{selectRow.item_name}</p>
                 </li>
-                <li className="flex flex-col gap-8 relative justify-center"></li>
-                <li className="flex flex-col gap-8 relative justify-center"></li>
-                <li className="flex flex-col gap-8 relative justify-center"></li>
+                <li className="flex flex-col gap-8  justify-center items-start">
+                  <p className="text-information text-sm">QTY.</p>
+                  <p className="text-sm font-bold">{selectRow.qty}</p>
+                </li>
+                <li className="flex flex-col gap-8  justify-center items-start">
+                  <p className="text-information text-sm">Price</p>
+                  <p className="text-sm font-bold">{`£ ${selectRow.price_item}`}</p>
+                </li>
+                <li className="flex flex-col gap-8  justify-center items-start">
+                  <p className="text-information text-sm">Total</p>
+                  <p className="text-sm font-bold">{`£ ${selectRow.total}`}</p>
+                </li>
               </ul>
-              <div></div>
+              <div className="flex justify-between w-full items-center absolute left-0 right-0 -bottom-20 bg-amount p-7 rounded-b-sm">
+                <p className="text-white text-sm">Amount Due</p>
+                <p className="text-3xl text-white font-bold">{`£ ${selectRow.total}`}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      {showDeleteModal && (<div className="w-screen h-full bg-black/30 fixed top-0 left-0">
+        <div className="w-[480px] bg-white rounded-md absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] px-10 py-16 flex flex-col gap-3">
+          <p className="text-2xl font-bold">Confirm Deletion</p>
+          <p className="text-sm text-information">
+            Are you sure you want to delete invoice #XM9141? This action cannot
+            be undone.
+          </p>
+          <div className="flex gap-2 items-center self-end justify-center">
+            <button className="bg-[#f9fafe] rounded-3xl text-sm px-4 py-3 text-[#7e88c3] font-bold hover:bg-indigo-100"
+            onClick={()=>setShowDeleteModal(false)}>
+              Cancle
+            </button>
+            <button className="bg-[#ec5757] px-5 py-3 rounded-3xl text-sm text-white font-bold hover:bg-[#ff9797]">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>)}
+
     </div>
   );
 };
