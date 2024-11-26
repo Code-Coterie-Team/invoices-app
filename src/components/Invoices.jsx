@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setSelectRow } from "../features/selectRowSlice";
+import { setShowModal } from "../features/modalSlice";
 // import { setItemList } from "../features/itemSlice";
 
 const generateRandomId = (length) => {
@@ -149,7 +150,7 @@ const Invoices = () => {
       Country: "United Kingdom",
     },
   ]);
-  console.log(invoices);
+  
   const [itemList, setItemList] = useState([]);
   // const { itemList } = useSelector((state) => state.itemList);
   const [qtyValue, setQtyValue] = useState(0);
@@ -163,7 +164,8 @@ const Invoices = () => {
   const [postCodeVlaue, setPostCodeValue] = useState("");
   const [countryVlaue, setCountryValue] = useState("");
   const [totalVlaue, setTotalValue] = useState(priceValue * qtyValue);
-  const [showModal, setShowModal] = useState(false);
+  const showModal  = useSelector((state) => state.showModal);
+  console.log(showModal);
   const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
 
@@ -222,22 +224,34 @@ const Invoices = () => {
     setShowFilter((currentState) => !currentState);
   };
 
+
+  const { theme } = useSelector((state) => state.theme);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   return (
     <>
       <div className="flex h-full w-screen">
         <Sidebar />
-        <div className="w-screen h-full bg-invoices flex justify-center">
+        <div className="w-screen h-full bg-invoices flex justify-center dark:bg-dark-primary-300">
           <div className="flex flex-col items-center w-6/12 py-20 gap-16 h-full">
             <div className="flex justify-between w-full">
               <div className="flex flex-col gap-3">
-                <h1 className="font-bold text-4xl ">Invoices</h1>
-                <span className="text-invoices_text text-sm">
+                <h1 className="font-bold text-4xl dark:text-dark-primary-1000 ">Invoices</h1>
+                <span className="text-invoices_text text-sm dark:text-dark-primary-1000">
                   There are 7 total invoices
                 </span>
               </div>
               <div className="flex gap-4 items-center justify-center relative">
                 <div className="flex gap-2 ">
-                  <p className="text-sm font-bold">Filter by status</p>
+                  <p className="text-sm font-bold dark:text-dark-primary-1000">Filter by status</p>
                   <div className=" w-3">
                     <img
                       src="/src/assets/icon-arrow-down.a6ed7bfffecda935c666.svg"
@@ -248,7 +262,7 @@ const Invoices = () => {
                 </div>
                 <button
                   className="flex gap-3 bg-button p-2 rounded-3xl items-center hover:bg-violet-400"
-                  onClick={() => setShowModal(true)}
+                  onClick={() => dispatch(setShowModal(true))}
                 >
                   <div className="w-7 h-7 rounded-full bg-white">
                     <img src="/src/assets/download.png" alt="" />
@@ -258,18 +272,18 @@ const Invoices = () => {
                   </span>
                 </button>
                 {showFilter && (
-                  <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md">
+                  <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md dark:bg-dark-primary-100">
                     <div className="flex items-center w-full gap-3">
                       <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
-                      <p className="text-sm font-medium text-black">Draft</p>
+                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">Draft</p>
                     </div>
                     <div className="flex items-center justify-start w-full gap-3">
                       <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
-                      <p className="text-sm font-medium text-black">Pending</p>
+                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">Pending</p>
                     </div>
                     <div className="flex items-center justify-start w-full gap-3">
                       <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
-                      <p className="text-sm font-medium text-black">Paid</p>
+                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">Paid</p>
                     </div>
                   </div>
                 )}
@@ -278,14 +292,14 @@ const Invoices = () => {
             <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">
               {invoices.map((invoice, index) => (
                 <div
-                  className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 hover:border-violet-800 hover:border-solid hover:border-[1px] "
+                  className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 hover:border-violet-800 hover:border-solid hover:border-[1px] dark:bg-dark-primary-100 "
                   key={index}
                   onClick={() => handleSelectRow(invoice)}
                 >
                   <div className="flex gap-7 items-center">
                     <div>
                       <span className="text-information">#</span>
-                      <span className="text-sm font-medium">
+                      <span className="text-sm font-medium dark:text-dark-primary-1000">
                         {invoice.code}
                       </span>
                     </div>
@@ -297,7 +311,7 @@ const Invoices = () => {
                     </span>
                   </div>
                   <div className="flex gap-12 items-center">
-                    <p className="text-lg font-bold">{`£ ${invoice.price}`}</p>
+                    <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${invoice.price}`}</p>
                     <div
                       className={`${
                         invoice.status === "paid"
@@ -344,7 +358,7 @@ const Invoices = () => {
       {showModal && (
         <div className="w-screen h-full bg-black/40 fixed top-0 left-0">
           <Sidebar />
-          <div className="w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20 overflow-auto">
+          <div className="w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20 overflow-auto dark:bg-dark-primary-400">
             <div className="w-full flex flex-col gap-5">
               <span className="text-sm text-Billform font-bold">Bill Form</span>
               <form action="Street" className="flex flex-col gap-4">
@@ -356,7 +370,7 @@ const Invoices = () => {
                   type="text"
                   name="Street"
                   id="Street"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
                 />
               </form>
               <div className="flex gap-10">
@@ -369,7 +383,7 @@ const Invoices = () => {
                     type="text"
                     name="City"
                     id="City"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
                   />
                 </form>
                 <form action="Street" className="flex flex-col gap-2">
@@ -384,7 +398,7 @@ const Invoices = () => {
                     type="text"
                     name="Post Code"
                     id="Post Code"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
                   />
                 </form>
                 <form action="Street" className="flex flex-col gap-2">
@@ -396,7 +410,7 @@ const Invoices = () => {
                     type="text"
                     name="Country"
                     id="Country"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500"
                   />
                 </form>
               </div>
@@ -417,7 +431,7 @@ const Invoices = () => {
                   type="text"
                   name="Client’s Name"
                   id="Client’s Name"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
                 />
               </form>
               <form action="Street" className="flex flex-col gap-4">
@@ -435,7 +449,7 @@ const Invoices = () => {
                   onChange={handleChangeEmail}
                   name="Client’s Email"
                   id="Client’s Email"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold  dark:bg-dark-primary-500"
                 />
               </form>
               <form action="Street" className="flex flex-col gap-4">
@@ -449,7 +463,7 @@ const Invoices = () => {
                   id="Street"
                   value={streetClientVlaue}
                   onChange={handleChangeStreet}
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
                 />
               </form>
               <div className="flex gap-10">
@@ -464,7 +478,7 @@ const Invoices = () => {
                     type="text"
                     name="City"
                     id="City"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
                   />
                 </form>
                 <form action="Street" className="flex flex-col gap-2">
@@ -481,7 +495,7 @@ const Invoices = () => {
                     type="text"
                     name="Post Code"
                     id="Post Code"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500"
                   />
                 </form>
                 <form action="Street" className="flex flex-col gap-2">
@@ -495,7 +509,7 @@ const Invoices = () => {
                     type="text"
                     name="Country"
                     id="Country"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
                   />
                 </form>
               </div>
@@ -510,7 +524,7 @@ const Invoices = () => {
                   type="date"
                   name="Invoice Date"
                   id="Invoice Date"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs rounded-md text-xs font-bold "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs rounded-md text-xs font-bold dark:bg-dark-primary-500 dark:text-information"
                   value={dateVlaue}
                   onChange={handleChangeDate}
                 />
@@ -523,7 +537,7 @@ const Invoices = () => {
                   required
                   name="payment"
                   id="payment"
-                  className="py-3 px-4 w-inputs border-[#dfe3fa] border-solid border-[1px] rounded-md "
+                  className="py-3 px-4 w-inputs border-[#dfe3fa] border-solid border-[1px] rounded-md dark:bg-dark-primary-500 dark:text-information"
                 >
                   <option value="Net 1 Day">Net 1 Day</option>
                   <option value="Net 7 Day">Net 7 Day</option>
@@ -547,7 +561,7 @@ const Invoices = () => {
                   placeholder="e.g Graphic Design Service"
                   name="Project Description"
                   id="Project Description"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs rounded-md text-xs font-bold "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs rounded-md text-xs font-bold dark:bg-dark-primary-500 "
                 />
               </form>
             </div>
@@ -567,25 +581,25 @@ const Invoices = () => {
                   >
                     <input
                       type="text"
-                      className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
+                      className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500"
                       value={nameItemVlaue}
                       onChange={handleChangeItemName}
                     />
                     <input
                       type="text"
-                      className=" w-20 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
+                      className=" w-20 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500 dark:text-information"
                       value={qtyValue}
                       onChange={handleChangeQty}
                     />
                     <input
                       type="text"
-                      className=" w-20 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
+                      className=" w-20 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500 dark:text-information"
                       value={priceValue}
                       onChange={handleChangePrice}
                     />
                     <input
                       type="text"
-                      className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm"
+                      className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500 dark:text-information"
                       value={totalVlaue}
                       onChange={handleChangeTotal}
                     />
@@ -614,14 +628,14 @@ const Invoices = () => {
               <div>
                 <button
                   className="h-12 rounded-3xl text-bill_button w-20 text-sm font-bold focus:border-black border-solid border-[1px]"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => dispatch(setShowModal(false))}
                 >
                   Discard
                 </button>
               </div>
               <div className="flex gap-8">
                 <button
-                  className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black"
+                  className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black "
                   onClick={() => {
                     setInvoices((prev) => {
                       return [
@@ -652,7 +666,7 @@ const Invoices = () => {
                   Save as Draft
                 </button>
                 <button
-                  className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold"
+                  className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold dark:text-indigo-700"
                   onClick={() => {
                     setInvoices((prev) => {
                       return [

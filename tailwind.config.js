@@ -2,6 +2,7 @@ import Invoices from './src/components/Invoices';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode:"selector",
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -26,7 +27,17 @@ export default {
         save_button:"#E5DFFE",
         delete_button :"rgb(236, 87, 87)",
         mark_button:"rgb(146, 119, 255)",
-        amount : "#373b53"
+        amount : "#373b53",
+        dark:{
+          primary:{
+            100 : "rgb(30, 33, 57)",
+            200: "rgb(0,0,0)",
+            300 : "#141625",
+            400:"rgb(30, 33, 57)",
+            500:" rgb(37, 41, 69)",
+            1000: "rgb(255,255,255)"
+          }
+        }
       },
       width:{
         inputs: "570px",

@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
 import { setSelectRow } from "../features/selectRowSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { setShowModal } from "../features/modalSlice";
 
 const Reciept = () => {
   const navigate = useNavigate();
@@ -11,15 +12,28 @@ const Reciept = () => {
   const { selectRow } = useSelector((state) => state.selectRow);
   const dispatch = useDispatch();
 
+  const { theme } = useSelector((state) => state.theme);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
   const markAsPaid = () => {
     dispatch(setSelectRow({ ...selectRow, status: "paid" }));
     navigate("/");
   };
 
+
+
   return (
     <div className="flex h-full w-screen">
       <Sidebar />
-      <div className="w-screen h-full bg-invoices flex justify-center">
+      <div className="w-screen h-full bg-invoices flex justify-center dark:bg-dark-primary-300">
         <div className="flex flex-col w-7/12 gap-6 h-screen p-16">
           <button
             className="flex gap-10 items-center"
@@ -32,9 +46,9 @@ const Reciept = () => {
                 className="w-2 h-2 "
               />
             </div>
-            <span className="text-sm font-semibold">Go Back</span>
+            <span className="text-sm font-semibold dark:text-dark-primary-1000">Go Back</span>
           </button>
-          <div className="w-full p-5 bg-white rounded-md flex justify-between">
+          <div className="w-full p-5 bg-white rounded-md flex justify-between  dark:bg-dark-primary-100">
             <div className="flex gap-3 items-center">
               <span className="text-sm text-information">Status</span>
               <div
@@ -61,7 +75,10 @@ const Reciept = () => {
               </div>
             </div>
             <div className="flex gap-9 p-2 items-center">
-              <button className="w-20 text-[#7e88c3] text-sm font-bold rounded-3xl hover:bg-violet-200  p-2">
+              <button className="w-20 text-[#7e88c3] text-sm font-bold rounded-3xl hover:bg-violet-200  p-2"
+              onClick={()=>dispatch(setShowModal(true))
+              }
+              >
                 Edit
               </button>
               <button
@@ -78,10 +95,10 @@ const Reciept = () => {
               </button>
             </div>
           </div>
-          <div className="w-full h-full bg-white rounded-lg flex flex-col justify-between items-center py-8 px-6 gap-4">
+          <div className="w-full h-full bg-white rounded-lg flex flex-col justify-between items-center py-8 px-6 gap-4  dark:bg-dark-primary-100">
             <div className="flex justify-between w-full">
               <div className="flex flex-col justify-center gap-3">
-                <p className="text-lg font-bold">{selectRow.code}</p>
+                <p className="text-lg font-bold dark:text-dark-primary-1000">{selectRow.code}</p>
                 <p className="text-information text-base">Re-branding</p>
               </div>
               <div className="flex flex-col justify-center gap-2">
@@ -104,16 +121,16 @@ const Reciept = () => {
                 <div className="flex flex-col gap-8 justify-center">
                   <div className="flex flex-col justify-center gap-3">
                     <p className="text-information text-base">Invoice Date</p>
-                    <p className="text-base font-bold"> 2021-10-07</p>
+                    <p className="text-base font-bold dark:text-dark-primary-1000"> 2021-10-07</p>
                   </div>
                   <div className="flex flex-col justify-center gap-3">
                     <p className="text-information text-base">Payment Due</p>
-                    <p className="text-base font-bold">{selectRow.date}</p>
+                    <p className="text-base font-bold dark:text-dark-primary-1000">{selectRow.date}</p>
                   </div>
                 </div>
                 <div className="flex flex-col gap-3 justify-center">
-                  <p className="text-information text-sm">Bill To</p>
-                  <p className="text-base font-bold">{selectRow.bill_to}</p>
+                  <p className="text-information text-sm ">Bill To</p>
+                  <p className="text-base font-bold dark:text-dark-primary-1000">{selectRow.bill_to}</p>
                   <div className="flex flex-col  justify-center">
                     <p className="text-information text-base">
                       {selectRow.street},
@@ -132,29 +149,29 @@ const Reciept = () => {
               </div>
               <div className="flex flex-col gap-3 justify-center">
                 <p className="text-information text-base">Sent To</p>
-                <p className="text-base font-bold">{selectRow.Email}</p>
+                <p className="text-base font-bold dark:text-dark-primary-1000">{selectRow.Email}</p>
               </div>
             </div>
-            <div className="flex flex-col justify-center p-8 relative bg-[#f9fafe] items-center w-full">
+            <div className="flex flex-col justify-center p-8 relative bg-[#f9fafe] items-center w-full rounded-md dark:bg-dark-primary-500">
               <ul className="flex justify-between list-none w-full">
                 <li className="flex flex-col gap-8 justify-center items-start">
                   <p className="text-information text-sm">Item Name</p>
-                  <p className="text-sm font-bold">{selectRow.item_name}</p>
+                  <p className="text-sm font-bold dark:text-dark-primary-1000">{selectRow.item_name}</p>
                 </li>
                 <li className="flex flex-col gap-8  justify-center items-start">
                   <p className="text-information text-sm">QTY.</p>
-                  <p className="text-sm font-bold">{selectRow.qty}</p>
+                  <p className="text-sm font-bold dark:text-dark-primary-1000">{selectRow.qty}</p>
                 </li>
                 <li className="flex flex-col gap-8  justify-center items-start">
                   <p className="text-information text-sm">Price</p>
-                  <p className="text-sm font-bold">{`£ ${selectRow.price_item}`}</p>
+                  <p className="text-sm font-bold dark:text-dark-primary-1000">{`£ ${selectRow.price_item}`}</p>
                 </li>
                 <li className="flex flex-col gap-8  justify-center items-start">
                   <p className="text-information text-sm">Total</p>
-                  <p className="text-sm font-bold">{`£ ${selectRow.total}`}</p>
+                  <p className="text-sm font-bold dark:text-dark-primary-1000">{`£ ${selectRow.total}`}</p>
                 </li>
               </ul>
-              <div className="flex justify-between w-full items-center absolute left-0 right-0 -bottom-20 bg-amount p-7 rounded-b-sm">
+              <div className="flex justify-between w-full items-center absolute left-0 right-0 -bottom-20 bg-amount p-7 rounded-b-sm dark:bg-dark-primary-200">
                 <p className="text-white text-sm">Amount Due</p>
                 <p className="text-3xl text-white font-bold">{`£ ${selectRow.total}`}</p>
               </div>
