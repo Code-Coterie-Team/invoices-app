@@ -307,7 +307,7 @@ const Invoices = () => {
                   </span>
                 </button>
                 {showFilter && (
-                  <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md dark:bg-dark-primary-100">
+                  <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md dark:bg-dark-primary-100 shadow-custom-light">
                     <div className="flex items-center w-full gap-3">
                       <div
                         className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${

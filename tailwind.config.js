@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'custom-light': '7px 7px 3px rgba(72, 84, 159, 0.25)',
+    },
       colors:{
         sidebar:"#373a53",
         demo : "rgb(240, 240, 240)",
@@ -42,6 +45,7 @@ export default {
       width:{
         inputs: "570px",
       }
+      
     },
   },
   plugins: [],
