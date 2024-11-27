@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { setSelectRow } from "../features/selectRowSlice";
 import { useEffect, useState } from "react";
 import { setShowModal } from "../features/modalSlice";
+import { setInvoices } from "../features/invoicesSlice";
 
 const Reciept = () => {
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const invoices = useSelector((state)=>state.invoices);
 
   const { selectRow } = useSelector((state) => state.selectRow);
   const dispatch = useDispatch();
@@ -25,8 +27,15 @@ const Reciept = () => {
 
   const markAsPaid = () => {
     dispatch(setSelectRow({ ...selectRow, status: "paid" }));
-    navigate("/");
   };
+
+  const deleteInvoice = ()=>{
+    navigate("/")
+    const updateInvoice = invoices.filter((invoice)=> invoice.code !== selectRow.code )
+    dispatch(setInvoices(updateInvoice));
+
+  }
+
 
 
 
@@ -191,7 +200,8 @@ const Reciept = () => {
             onClick={()=>setShowDeleteModal(false)}>
               Cancle
             </button>
-            <button className="bg-[#ec5757] px-5 py-3 rounded-3xl text-sm text-white font-bold hover:bg-[#ff9797]">
+            <button className="bg-[#ec5757] px-5 py-3 rounded-3xl text-sm text-white font-bold hover:bg-[#ff9797]"
+            onClick={deleteInvoice}>
               Delete
             </button>
           </div>

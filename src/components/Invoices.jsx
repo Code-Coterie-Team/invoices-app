@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setSelectRow } from "../features/selectRowSlice";
 import { setShowModal } from "../features/modalSlice";
+import { setInvoices } from "../features/invoicesSlice";
 // import { setItemList } from "../features/itemSlice";
 
 const generateRandomId = (length) => {
@@ -17,140 +18,140 @@ const generateRandomId = (length) => {
   return randomId;
 };
 const Invoices = () => {
-  const [invoices, setInvoices] = useState([
-    {
-      code: "RT3080",
-      date: "2021-8-18",
-      bill_to: "Jensen Huang",
-      price: "1800.9",
-      status: "paid",
-      street: "19 Union Terrace",
-      City: "London",
-      Post_code: "E1 3EZ",
-      Country: "United Kingdom",
-      Email: "jensenh@mail.com",
-      street_Client: "106 Kendell Street",
-      City_Client: "Sharrington",
-      Post_code_Client: "NR24 5WQ",
-      Country_Client: "United Kingdom",
-      item_name: "Web Design",
-      qty: "1",
-      price_item: " 6155.91",
-      total: " 6155.91",
-    },
-    {
-      code: "XM9141",
-      date: "2021-8-21",
-      bill_to: "Alex Grim",
-      price: "556",
-      status: "pending",
-      street: "19 Union Terrace",
-      City: "London",
-      Post_code: "E1 3EZ",
-      Country: "United Kingdom",
-      Email: "alexgrim@mail.com",
-      street_Client: "84 Church Way",
-      City_Client: "Bradford",
-      Post_code_Client: "BD1 9PB",
-      Country_Client: "United Kingdom",
-      item_name: "Brand Guidelines",
-      qty: "1",
-      price_item: " 1800.9",
-      total: " 1800.9",
-    },
-    {
-      code: "RG0314",
-      date: "2021-9-24",
-      bill_to: "John Morrison",
-      price: "14002.33",
-      status: "paid",
-      street: "19 Union Terrace",
-      City: "London",
-      Post_code: "E1 3EZ",
-      Country: "United Kingdom",
-      Email: "jm@myco.com",
-      street_Client: "79 Dover Road",
-      City_Client: "Westhall",
-      Post_code_Client: "IP19 3PF",
-      Country_Client: "United Kingdom",
-      item_name: "Banner Design",
-      qty: "1",
-      price_item: "  156",
-      total: "  156",
-    },
-    {
-      code: "RT2080",
-      date: "2021-10-11",
-      bill_to: "Alysa Werner",
-      price: "102.04",
-      status: "pending",
-      street: "19 Union Terrace",
-      City: "London",
-      Post_code: "E1 3EZ",
-      Country: "United Kingdom",
-      Email: "alysa@email.co.uk",
-      street_Client: "63 Warwick Road",
-      City_Client: "Carlisle",
-      Post_code_Client: "CA20 2TG",
-      Country_Client: "United Kingdom",
-      item_name: "Logo Sketches",
-      qty: "1",
-      price_item: "  102.04",
-      total: "  102.04",
-    },
-    {
-      code: "AA1449",
-      date: "2021-10-7",
-      bill_to: "Mellisa Clarke",
-      price: "4032.33",
-      status: "pending",
-      street: "19 Union Terrace",
-      City: "London",
-      Post_code: "E1 3EZ",
-      Country: "United Kingdom",
-      Email: "mellisa.clarke@example.com",
-      street_Client: "46 Abbey Row",
-      City_Client: "Cambridge",
-      Post_code_Client: "CB5 6EG",
-      Country_Client: "United Kingdom",
-      item_name: "New Logo",
-      qty: "2",
-      price_item: "  1532.33",
-      total: "  3064",
-    },
-    {
-      code: "TY9141",
-      date: "2021-10-01",
-      bill_to: "Thomas Wayne",
-      price: "6155.91",
-      status: "pending",
-      street: "19 Union Terrace",
-      City: "London",
-      Post_code: "E1 3EZ",
-      Country: "United Kingdom",
-      Email: "thomas@dc.com",
-      street_Client: "",
-      City_Client: "Gotham",
-      Post_code_Client: "60457",
-      Country_Client: "United States of America",
-      item_name: "Brand Guidelines",
-      qty: "1",
-      price_item: "  2500",
-      total: "  2500",
-    },
-    {
-      code: "FV2353",
-      date: "2021-11-05",
-      bill_to: "Anita Wainwright",
-      price: "3102.04",
-      status: "pending",
-      street: "19 Union Terrace",
-      City: "London",
-      Post_code: "E1 3EZ",
-      Country: "United Kingdom",
-    },
-  ]);
-  
+  // const [invoices, setInvoices] = useState([
+  //   {
+  //     code: "RT3080",
+  //     date: "2021-8-18",
+  //     bill_to: "Jensen Huang",
+  //     price: "1800.9",
+  //     status: "paid",
+  //     street: "19 Union Terrace",
+  //     City: "London",
+  //     Post_code: "E1 3EZ",
+  //     Country: "United Kingdom",
+  //     Email: "jensenh@mail.com",
+  //     street_Client: "106 Kendell Street",
+  //     City_Client: "Sharrington",
+  //     Post_code_Client: "NR24 5WQ",
+  //     Country_Client: "United Kingdom",
+  //     item_name: "Web Design",
+  //     qty: "1",
+  //     price_item: " 6155.91",
+  //     total: " 6155.91",
+  //   },
+  //   {
+  //     code: "XM9141",
+  //     date: "2021-8-21",
+  //     bill_to: "Alex Grim",
+  //     price: "556",
+  //     status: "pending",
+  //     street: "19 Union Terrace",
+  //     City: "London",
+  //     Post_code: "E1 3EZ",
+  //     Country: "United Kingdom",
+  //     Email: "alexgrim@mail.com",
+  //     street_Client: "84 Church Way",
+  //     City_Client: "Bradford",
+  //     Post_code_Client: "BD1 9PB",
+  //     Country_Client: "United Kingdom",
+  //     item_name: "Brand Guidelines",
+  //     qty: "1",
+  //     price_item: " 1800.9",
+  //     total: " 1800.9",
+  //   },
+  //   {
+  //     code: "RG0314",
+  //     date: "2021-9-24",
+  //     bill_to: "John Morrison",
+  //     price: "14002.33",
+  //     status: "paid",
+  //     street: "19 Union Terrace",
+  //     City: "London",
+  //     Post_code: "E1 3EZ",
+  //     Country: "United Kingdom",
+  //     Email: "jm@myco.com",
+  //     street_Client: "79 Dover Road",
+  //     City_Client: "Westhall",
+  //     Post_code_Client: "IP19 3PF",
+  //     Country_Client: "United Kingdom",
+  //     item_name: "Banner Design",
+  //     qty: "1",
+  //     price_item: "  156",
+  //     total: "  156",
+  //   },
+  //   {
+  //     code: "RT2080",
+  //     date: "2021-10-11",
+  //     bill_to: "Alysa Werner",
+  //     price: "102.04",
+  //     status: "pending",
+  //     street: "19 Union Terrace",
+  //     City: "London",
+  //     Post_code: "E1 3EZ",
+  //     Country: "United Kingdom",
+  //     Email: "alysa@email.co.uk",
+  //     street_Client: "63 Warwick Road",
+  //     City_Client: "Carlisle",
+  //     Post_code_Client: "CA20 2TG",
+  //     Country_Client: "United Kingdom",
+  //     item_name: "Logo Sketches",
+  //     qty: "1",
+  //     price_item: "  102.04",
+  //     total: "  102.04",
+  //   },
+  //   {
+  //     code: "AA1449",
+  //     date: "2021-10-7",
+  //     bill_to: "Mellisa Clarke",
+  //     price: "4032.33",
+  //     status: "pending",
+  //     street: "19 Union Terrace",
+  //     City: "London",
+  //     Post_code: "E1 3EZ",
+  //     Country: "United Kingdom",
+  //     Email: "mellisa.clarke@example.com",
+  //     street_Client: "46 Abbey Row",
+  //     City_Client: "Cambridge",
+  //     Post_code_Client: "CB5 6EG",
+  //     Country_Client: "United Kingdom",
+  //     item_name: "New Logo",
+  //     qty: "2",
+  //     price_item: "  1532.33",
+  //     total: "  3064",
+  //   },
+  //   {
+  //     code: "TY9141",
+  //     date: "2021-10-01",
+  //     bill_to: "Thomas Wayne",
+  //     price: "6155.91",
+  //     status: "pending",
+  //     street: "19 Union Terrace",
+  //     City: "London",
+  //     Post_code: "E1 3EZ",
+  //     Country: "United Kingdom",
+  //     Email: "thomas@dc.com",
+  //     street_Client: "",
+  //     City_Client: "Gotham",
+  //     Post_code_Client: "60457",
+  //     Country_Client: "United States of America",
+  //     item_name: "Brand Guidelines",
+  //     qty: "1",
+  //     price_item: "  2500",
+  //     total: "  2500",
+  //   },
+  //   {
+  //     code: "FV2353",
+  //     date: "2021-11-05",
+  //     bill_to: "Anita Wainwright",
+  //     price: "3102.04",
+  //     status: "pending",
+  //     street: "19 Union Terrace",
+  //     City: "London",
+  //     Post_code: "E1 3EZ",
+  //     Country: "United Kingdom",
+  //   },
+  // ]);
+
   const [itemList, setItemList] = useState([]);
   // const { itemList } = useSelector((state) => state.itemList);
   const [qtyValue, setQtyValue] = useState(0);
@@ -164,7 +165,15 @@ const Invoices = () => {
   const [postCodeVlaue, setPostCodeValue] = useState("");
   const [countryVlaue, setCountryValue] = useState("");
   const [totalVlaue, setTotalValue] = useState(priceValue * qtyValue);
-  const showModal  = useSelector((state) => state.showModal);
+  const [filterValue, setFilterValue] = useState("");
+  const [activeFilter, setActiveFilter] = useState("");
+  const [street, setstreet] = useState("");
+  const [city, setCity] = useState("");
+  const [postCode, setPostCode] = useState("");
+  const [country, setCountry] = useState("");
+  const [isToggled, setIsToggled] = useState(false);
+  const invoices = useSelector((state)=>state.invoices)
+  const showModal = useSelector((state) => state.showModal);
   console.log(showModal);
   const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
@@ -189,17 +198,29 @@ const Invoices = () => {
   const handleChangeEmail = (event) => {
     setEmailValue(event.target.value);
   };
-  const handleChangeStreet = (event) => {
+  const handleChangeStreetCilent = (event) => {
     setstreetClientValue(event.target.value);
   };
-  const handleChangeCity = (event) => {
+  const handleChangeCityClient = (event) => {
     setCityValue(event.target.value);
   };
-  const handleChangePostCode = (event) => {
+  const handleChangePostCodeClient = (event) => {
     setPostCodeValue(event.target.value);
   };
-  const handleChangeCountry = (event) => {
+  const handleChangeCountryClient = (event) => {
     setCountryValue(event.target.value);
+  };
+  const handleChangeStreet = (event) => {
+    setstreet(event.target.value);
+  };
+  const handleChangeCity = (event) => {
+    setCity(event.target.value);
+  };
+  const handleChangePostCode = (event) => {
+    setPostCode(event.target.value);
+  };
+  const handleChangeCountry = (event) => {
+    setCountry(event.target.value);
   };
   const handleChangeItemName = (event) => {
     setNameItemValue(event.target.value);
@@ -220,10 +241,21 @@ const Invoices = () => {
     console.log(invoice);
   };
 
+  const handleClickFilter = (value) => {
+    if (activeFilter === value) {
+      setActiveFilter(""); // Deselect if already selected
+      setIsToggled(false); // Reset toggle
+      setFilterValue("");
+    } else {
+      setActiveFilter(value); // Set the new active filter
+      setIsToggled(true); // Set toggle to true
+      setFilterValue(value);
+    }
+  };
+
   const toggle = () => {
     setShowFilter((currentState) => !currentState);
   };
-
 
   const { theme } = useSelector((state) => state.theme);
 
@@ -231,7 +263,6 @@ const Invoices = () => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
-
       document.documentElement.classList.remove("dark");
     }
   }, [theme]);
@@ -244,14 +275,18 @@ const Invoices = () => {
           <div className="flex flex-col items-center w-6/12 py-20 gap-16 h-full">
             <div className="flex justify-between w-full">
               <div className="flex flex-col gap-3">
-                <h1 className="font-bold text-4xl dark:text-dark-primary-1000 ">Invoices</h1>
+                <h1 className="font-bold text-4xl dark:text-dark-primary-1000 ">
+                  Invoices
+                </h1>
                 <span className="text-invoices_text text-sm dark:text-dark-primary-1000">
                   There are 7 total invoices
                 </span>
               </div>
               <div className="flex gap-4 items-center justify-center relative">
                 <div className="flex gap-2 ">
-                  <p className="text-sm font-bold dark:text-dark-primary-1000">Filter by status</p>
+                  <p className="text-sm font-bold dark:text-dark-primary-1000">
+                    Filter by status
+                  </p>
                   <div className=" w-3">
                     <img
                       src="/src/assets/icon-arrow-down.a6ed7bfffecda935c666.svg"
@@ -274,83 +309,130 @@ const Invoices = () => {
                 {showFilter && (
                   <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md dark:bg-dark-primary-100">
                     <div className="flex items-center w-full gap-3">
-                      <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
-                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">Draft</p>
+                      <div
+                        className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${
+                          activeFilter === "draft" ? "bg-purple-700" : ""
+                        }`}
+                        onClick={() => handleClickFilter("draft")}
+                        style={{
+                          backgroundImage:
+                            activeFilter === "draft" && isToggled
+                              ? "url('/src/assets/icon-check.svg')"
+                              : "none",
+                          backgroundSize:"15px"
+                        }}
+                      ></div>
+                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
+                        Draft
+                      </p>
                     </div>
                     <div className="flex items-center justify-start w-full gap-3">
-                      <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
-                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">Pending</p>
+                      <div
+                        className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${
+                          activeFilter === "pending" ? "bg-purple-700" : ""
+                        }`}
+                        onClick={() => handleClickFilter("pending")}
+                        style={{
+                          backgroundImage:
+                            activeFilter === "pending" && isToggled
+                              ? "url('/src/assets/icon-check.svg')"
+                              : "none",
+                          backgroundSize:"15px"
+                        }}
+                      ></div>
+                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
+                        Pending
+                      </p>
                     </div>
                     <div className="flex items-center justify-start w-full gap-3">
-                      <div className="bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat"></div>
-                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">Paid</p>
+                      <div
+                         className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${
+                          activeFilter === "paid" ? "bg-purple-700" : ""
+                        }`}
+                        onClick={() => handleClickFilter("paid")}
+                        style={{
+                          backgroundImage:
+                            activeFilter === "paid" && isToggled
+                              ? "url('/src/assets/icon-check.svg')"
+                              : "none",
+                          backgroundSize:"15px"
+                        }}
+                      ></div>
+                      <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
+                        Paid
+                      </p>
                     </div>
                   </div>
                 )}
               </div>
             </div>
             <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">
-              {invoices.map((invoice, index) => (
-                <div
-                  className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 hover:border-violet-800 hover:border-solid hover:border-[1px] dark:bg-dark-primary-100 "
-                  key={index}
-                  onClick={() => handleSelectRow(invoice)}
-                >
-                  <div className="flex gap-7 items-center">
-                    <div>
-                      <span className="text-information">#</span>
-                      <span className="text-sm font-medium dark:text-dark-primary-1000">
-                        {invoice.code}
+              {invoices
+                .filter((invoice) => {
+                  if (filterValue == "") return invoice;
+                  return invoice.status === filterValue.toLowerCase();
+                })
+                .map((invoice, index) => (
+                  <div
+                    className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 hover:border-violet-800 hover:border-solid hover:border-[1px] dark:bg-dark-primary-100 "
+                    key={index}
+                    onClick={() => handleSelectRow(invoice)}
+                  >
+                    <div className="flex gap-7 items-center">
+                      <div>
+                        <span className="text-information">#</span>
+                        <span className="text-sm font-medium dark:text-dark-primary-1000">
+                          {invoice.code}
+                        </span>
+                      </div>
+                      <span className="text-information text-sm">
+                        {invoice.date}
+                      </span>
+                      <span className="text-information text-sm">
+                        {invoice.bill_to}
                       </span>
                     </div>
-                    <span className="text-information text-sm">
-                      {invoice.date}
-                    </span>
-                    <span className="text-information text-sm">
-                      {invoice.bill_to}
-                    </span>
-                  </div>
-                  <div className="flex gap-12 items-center">
-                    <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${invoice.price}`}</p>
-                    <div
-                      className={`${
-                        invoice.status === "paid"
-                          ? "bg-paid"
-                          : invoice.status === "pending"
-                          ? "bg-pending"
-                          : "bg-gray-200"
-                      } rounded-lg p-2 w-24 flex gap-3 items-center`}
-                    >
+                    <div className="flex gap-12 items-center">
+                      <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${invoice.price}`}</p>
                       <div
                         className={`${
                           invoice.status === "paid"
-                            ? "bg-paid_text"
+                            ? "bg-paid"
                             : invoice.status === "pending"
-                            ? "bg-pending_text"
-                            : "bg-black"
-                        } w-2 h-2 rounded-full`}
-                      ></div>
-                      <span
-                        className={`${
-                          invoice.status === "paid"
-                            ? "text-paid_text"
-                            : invoice.status === "pending"
-                            ? "text-pending_text"
-                            : "text-black"
-                        } text-xs font-medium`}
+                            ? "bg-pending"
+                            : "bg-gray-200"
+                        } rounded-lg p-2 w-24 flex gap-3 items-center`}
                       >
-                        {invoice.status}
-                      </span>
-                    </div>
-                    <div>
-                      <img
-                        src="/src/assets/icon-arrow-right.9e19be64001504a17c14.svg"
-                        alt=""
-                      />
+                        <div
+                          className={`${
+                            invoice.status === "paid"
+                              ? "bg-paid_text"
+                              : invoice.status === "pending"
+                              ? "bg-pending_text"
+                              : "bg-black"
+                          } w-2 h-2 rounded-full`}
+                        ></div>
+                        <span
+                          className={`${
+                            invoice.status === "paid"
+                              ? "text-paid_text"
+                              : invoice.status === "pending"
+                              ? "text-pending_text"
+                              : "text-black"
+                          } text-xs font-medium`}
+                        >
+                          {invoice.status}
+                        </span>
+                      </div>
+                      <div>
+                        <img
+                          src="/src/assets/icon-arrow-right.9e19be64001504a17c14.svg"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
@@ -366,11 +448,13 @@ const Invoices = () => {
                   Street Address
                 </label>
                 <input
+                value={street}
+                onChange={handleChangeStreet}
                   required
                   type="text"
                   name="Street"
                   id="Street"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information "
                 />
               </form>
               <div className="flex gap-10">
@@ -383,7 +467,9 @@ const Invoices = () => {
                     type="text"
                     name="City"
                     id="City"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
+                    value={city}
+                    onChange={handleChangeCity}
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information"
                   />
                 </form>
                 <form action="Street" className="flex flex-col gap-2">
@@ -394,11 +480,13 @@ const Invoices = () => {
                     Post Code
                   </label>
                   <input
+                  value={postCode}
+                  onChange = {handleChangePostCode}
                     required
                     type="text"
                     name="Post Code"
                     id="Post Code"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information"
                   />
                 </form>
                 <form action="Street" className="flex flex-col gap-2">
@@ -406,11 +494,13 @@ const Invoices = () => {
                     Country
                   </label>
                   <input
+                  value={country}
+                  onChange={handleChangeCountry}
                     required
                     type="text"
                     name="Country"
                     id="Country"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500"
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information"
                   />
                 </form>
               </div>
@@ -431,7 +521,7 @@ const Invoices = () => {
                   type="text"
                   name="Client’s Name"
                   id="Client’s Name"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information "
                 />
               </form>
               <form action="Street" className="flex flex-col gap-4">
@@ -449,7 +539,7 @@ const Invoices = () => {
                   onChange={handleChangeEmail}
                   name="Client’s Email"
                   id="Client’s Email"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold  dark:bg-dark-primary-500"
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold  dark:bg-dark-primary-500  dark:text-information"
                 />
               </form>
               <form action="Street" className="flex flex-col gap-4">
@@ -462,8 +552,8 @@ const Invoices = () => {
                   name="Street"
                   id="Street"
                   value={streetClientVlaue}
-                  onChange={handleChangeStreet}
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
+                  onChange={handleChangeStreetCilent}
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 dark:text-information "
                 />
               </form>
               <div className="flex gap-10">
@@ -473,12 +563,12 @@ const Invoices = () => {
                   </label>
                   <input
                     value={cityVlaue}
-                    onChange={handleChangeCity}
+                    onChange={handleChangeCityClient}
                     required
                     type="text"
                     name="City"
                     id="City"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information "
                   />
                 </form>
                 <form action="Street" className="flex flex-col gap-2">
@@ -490,12 +580,12 @@ const Invoices = () => {
                   </label>
                   <input
                     value={postCodeVlaue}
-                    onChange={handleChangePostCode}
+                    onChange={handleChangePostCodeClient}
                     required
                     type="text"
                     name="Post Code"
                     id="Post Code"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500"
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information"
                   />
                 </form>
                 <form action="Street" className="flex flex-col gap-2">
@@ -504,12 +594,12 @@ const Invoices = () => {
                   </label>
                   <input
                     value={countryVlaue}
-                    onChange={handleChangeCountry}
+                    onChange={handleChangeCountryClient}
                     required
                     type="text"
                     name="Country"
                     id="Country"
-                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500 "
+                    className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-36 box-border rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information"
                   />
                 </form>
               </div>
@@ -561,7 +651,7 @@ const Invoices = () => {
                   placeholder="e.g Graphic Design Service"
                   name="Project Description"
                   id="Project Description"
-                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs rounded-md text-xs font-bold dark:bg-dark-primary-500 "
+                  className="outline-none border-[#dfe3fa] border-solid border-[1px] py-3 px-4 w-inputs rounded-md text-xs font-bold dark:bg-dark-primary-500  dark:text-information"
                 />
               </form>
             </div>
@@ -581,7 +671,7 @@ const Invoices = () => {
                   >
                     <input
                       type="text"
-                      className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500"
+                      className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500  dark:text-information"
                       value={nameItemVlaue}
                       onChange={handleChangeItemName}
                     />
@@ -637,7 +727,7 @@ const Invoices = () => {
                 <button
                   className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black "
                   onClick={() => {
-                    setInvoices((prev) => {
+                    dispatch(setInvoices((prev) => {
                       return [
                         ...prev,
                         {
@@ -646,41 +736,10 @@ const Invoices = () => {
                           bill_to: nameVlaue,
                           price: totalVlaue,
                           status: "draft",
-                          street: "19 Union Terrace",
-                          City: "London",
-                          Post_code: "E1 3EZ",
-                          Country: "United Kingdom",
-                          Email: emailVlaue,
-                          street_Client: streetClientVlaue,
-                          City_Client: cityVlaue,
-                          Post_code_Client: postCodeVlaue,
-                          Country_Client: countryVlaue,
-                        },
-
-                      ];
-                    });
-                    resetForm();
-                    setShowModal(false);
-                  }}
-                >
-                  Save as Draft
-                </button>
-                <button
-                  className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold dark:text-indigo-700"
-                  onClick={() => {
-                    setInvoices((prev) => {
-                      return [
-                        ...prev,
-                        {
-                          code: generateRandomId(6),
-                          date: dateVlaue,
-                          bill_to: nameVlaue,
-                          price: totalVlaue,
-                          status: "pending",
-                          street: "19 Union Terrace",
-                          City: "London",
-                          Post_code: "E1 3EZ",
-                          Country: "United Kingdom",
+                          street: street,
+                          City: city,
+                          Post_code:postCode,
+                          Country: country,
                           Email: emailVlaue,
                           street_Client: streetClientVlaue,
                           City_Client: cityVlaue,
@@ -692,9 +751,43 @@ const Invoices = () => {
                           total: totalVlaue,
                         },
                       ];
-                    });
+                    }));
                     resetForm();
-                    setShowModal(false);
+                    dispatch(setShowModal(false));
+                  }}
+                >
+                  Save as Draft
+                </button>
+                <button
+                  className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold dark:text-indigo-700"
+                  onClick={() => {
+                   dispatch( setInvoices((prev) => {
+                      return [
+                        ...prev,
+                        {
+                          code: generateRandomId(6),
+                          date: dateVlaue,
+                          bill_to: nameVlaue,
+                          price: totalVlaue,
+                          status: "pending",
+                          street: street,
+                          City: city,
+                          Post_code:postCode,
+                          Country: country,
+                          Email: emailVlaue,
+                          street_Client: streetClientVlaue,
+                          City_Client: cityVlaue,
+                          Post_code_Client: postCodeVlaue,
+                          Country_Client: countryVlaue,
+                          item_name: nameItemVlaue,
+                          qty: qtyValue,
+                          price_item: priceValue,
+                          total: totalVlaue,
+                        },
+                      ];
+                    }));
+                    resetForm();
+                    dispatch(setShowModal(false));
                   }}
                 >
                   Save & Send
