@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setSelectRow } from "../features/selectRowSlice";
 import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
+import { setItemList } from "../features/itemSlice";
 // import { setItemList } from "../features/itemSlice";
 
 const generateRandomId = (length) => {
@@ -152,8 +153,9 @@ const Invoices = () => {
   //   },
   // ]);
 
-  const [itemList, setItemList] = useState([]);
-  // const { itemList } = useSelector((state) => state.itemList);
+  // const [itemList, setItemList] = useState([]);
+ const {items} = useSelector((state)=> state.itemList)
+ console.log(items);
   const [qtyValue, setQtyValue] = useState(0);
   const [priceValue, setPriceValue] = useState(0);
   const [dateVlaue, setDateValue] = useState("");
@@ -164,7 +166,8 @@ const Invoices = () => {
   const [cityVlaue, setCityValue] = useState("");
   const [postCodeVlaue, setPostCodeValue] = useState("");
   const [countryVlaue, setCountryValue] = useState("");
-  const [totalVlaue, setTotalValue] = useState(priceValue * qtyValue);
+  const [totalVlaue, setTotalValue] = useState("");
+  console.log(totalVlaue);
   const [filterValue, setFilterValue] = useState("");
   const [activeFilter, setActiveFilter] = useState("");
   const [street, setstreet] = useState("");
@@ -172,9 +175,9 @@ const Invoices = () => {
   const [postCode, setPostCode] = useState("");
   const [country, setCountry] = useState("");
   const [isToggled, setIsToggled] = useState(false);
-  const invoices = useSelector((state)=>state.invoices)
+  const {rowInvoices} = useSelector((state)=>state.invoices)
+  // console.log(rowInvoices);
   const showModal = useSelector((state) => state.showModal);
-  console.log(showModal);
   const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
 
@@ -182,6 +185,7 @@ const Invoices = () => {
 
   const handleChangeQty = (event) => {
     setQtyValue(event.target.value);
+      
   };
   const handleChangePrice = (event) => {
     setPriceValue(event.target.value);
@@ -229,10 +233,19 @@ const Invoices = () => {
     setTotalValue("");
     setNameValue("");
     setDateValue("");
+    setQtyValue("");
+    setPriceValue("");
   };
+
+  const resetItem = ()=>{
+    setQtyValue(0);
+
+  }
+
+
   const handleRemoveLastItem = () => {
-    if (itemList.length > 0) {
-      setItemList(itemList.slice(0, itemList.length - 1));
+    if (items.length > 0) {
+      dispatch(setItemList(items.slice(0, items.length - 1)));
     }
   };
   const handleSelectRow = (invoice) => {
@@ -243,12 +256,12 @@ const Invoices = () => {
 
   const handleClickFilter = (value) => {
     if (activeFilter === value) {
-      setActiveFilter(""); // Deselect if already selected
-      setIsToggled(false); // Reset toggle
+      setActiveFilter(""); 
+      setIsToggled(false); 
       setFilterValue("");
     } else {
-      setActiveFilter(value); // Set the new active filter
-      setIsToggled(true); // Set toggle to true
+      setActiveFilter(value); 
+      setIsToggled(true); 
       setFilterValue(value);
     }
   };
@@ -367,7 +380,7 @@ const Invoices = () => {
               </div>
             </div>
             <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">
-              {invoices
+              {rowInvoices
                 .filter((invoice) => {
                   if (filterValue == "") return invoice;
                   return invoice.status === filterValue.toLowerCase();
@@ -393,7 +406,7 @@ const Invoices = () => {
                       </span>
                     </div>
                     <div className="flex gap-12 items-center">
-                      <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${invoice.price}`}</p>
+                      <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${invoice.total}`}</p>
                       <div
                         className={`${
                           invoice.status === "paid"
@@ -664,7 +677,7 @@ const Invoices = () => {
                 <li>Total</li>
               </ul>
               <div>
-                {itemList.map((item) => (
+                {items.map((item) => (
                   <div
                     key={item.id}
                     className="flex mb-3 items-center justify-between "
@@ -690,7 +703,7 @@ const Invoices = () => {
                     <input
                       type="text"
                       className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500 dark:text-information"
-                      value={totalVlaue}
+                      value={qtyValue*priceValue}
                       onChange={handleChangeTotal}
                     />
                     <div className="w-4 h-5">
@@ -703,12 +716,13 @@ const Invoices = () => {
                     </div>
                   </div>
                 ))}
+                
               </div>
 
               <button
                 className="rounded-2xl text-center w-full p-4 hover:bg-[#DFE3FA] text-bill_button text-xs font-bold"
                 onClick={() =>
-                  setItemList([...itemList, { id: itemList.length }])
+                  dispatch(setItemList([...items, { id: items.length }]))
                 }
               >
                 + Add New Item
@@ -727,31 +741,29 @@ const Invoices = () => {
                 <button
                   className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black "
                   onClick={() => {
-                    dispatch(setInvoices((prev) => {
-                      return [
-                        ...prev,
-                        {
-                          code: generateRandomId(6),
-                          date: dateVlaue,
-                          bill_to: nameVlaue,
-                          price: totalVlaue,
-                          status: "draft",
-                          street: street,
-                          City: city,
-                          Post_code:postCode,
-                          Country: country,
-                          Email: emailVlaue,
-                          street_Client: streetClientVlaue,
-                          City_Client: cityVlaue,
-                          Post_code_Client: postCodeVlaue,
-                          Country_Client: countryVlaue,
-                          item_name: nameItemVlaue,
-                          qty: qtyValue,
-                          price_item: priceValue,
-                          total: totalVlaue,
-                        },
-                      ];
-                    }));
+                    dispatch(setInvoices(  [
+                       ...rowInvoices,
+                      {
+                        code: generateRandomId(6),
+                        date: dateVlaue,
+                        bill_to: nameVlaue,
+                        price: totalVlaue,
+                        status: "draft",
+                        street: street,
+                        City: city,
+                        Post_code:postCode,
+                        Country: country,
+                        Email: emailVlaue,
+                        street_Client: streetClientVlaue,
+                        City_Client: cityVlaue,
+                        Post_code_Client: postCodeVlaue,
+                        Country_Client: countryVlaue,
+                        item_name: nameItemVlaue,
+                        qty: qtyValue,
+                        price_item: priceValue,
+                        total: totalVlaue,
+                      },
+                    ]));
                     resetForm();
                     dispatch(setShowModal(false));
                   }}
@@ -761,31 +773,29 @@ const Invoices = () => {
                 <button
                   className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold dark:text-indigo-700"
                   onClick={() => {
-                   dispatch( setInvoices((prev) => {
-                      return [
-                        ...prev,
-                        {
-                          code: generateRandomId(6),
-                          date: dateVlaue,
-                          bill_to: nameVlaue,
-                          price: totalVlaue,
-                          status: "pending",
-                          street: street,
-                          City: city,
-                          Post_code:postCode,
-                          Country: country,
-                          Email: emailVlaue,
-                          street_Client: streetClientVlaue,
-                          City_Client: cityVlaue,
-                          Post_code_Client: postCodeVlaue,
-                          Country_Client: countryVlaue,
-                          item_name: nameItemVlaue,
-                          qty: qtyValue,
-                          price_item: priceValue,
-                          total: totalVlaue,
-                        },
-                      ];
-                    }));
+                    dispatch(setInvoices([
+                       ...rowInvoices,
+                      {
+                        code: generateRandomId(6),
+                        date: dateVlaue,
+                        bill_to: nameVlaue,
+                        price: priceValue,
+                        status: "pending",
+                        street: street,
+                        City: city,
+                        Post_code:postCode,
+                        Country: country,
+                        Email: emailVlaue,
+                        street_Client: streetClientVlaue,
+                        City_Client: cityVlaue,
+                        Post_code_Client: postCodeVlaue,
+                        Country_Client: countryVlaue,
+                        item_name: nameItemVlaue,
+                        qty: qtyValue,
+                        price_item: priceValue,
+                        total: totalVlaue,
+                      },
+                    ]));
                     resetForm();
                     dispatch(setShowModal(false));
                   }}

@@ -9,9 +9,11 @@ import { setInvoices } from "../features/invoicesSlice";
 const Reciept = () => {
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const invoices = useSelector((state)=>state.invoices);
+  const {rowInvoices} = useSelector((state)=>state.invoices);
+  // console.log(rowInvoices);
 
   const { selectRow } = useSelector((state) => state.selectRow);
+  // console.log(selectRow);
   const dispatch = useDispatch();
 
   const { theme } = useSelector((state) => state.theme);
@@ -30,9 +32,11 @@ const Reciept = () => {
   };
 
   const deleteInvoice = ()=>{
-    navigate("/")
-    const updateInvoice = invoices.filter((invoice)=> invoice.code !== selectRow.code )
+    const updateInvoice = rowInvoices.filter((rowInvoice)=> rowInvoice.code !== selectRow.code )
+    console.log(updateInvoice);
     dispatch(setInvoices(updateInvoice));
+
+    navigate("/")
 
   }
 
