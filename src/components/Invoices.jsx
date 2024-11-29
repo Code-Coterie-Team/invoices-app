@@ -6,7 +6,6 @@ import { setSelectRow } from "../features/selectRowSlice";
 import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
 import { setItemList } from "../features/itemSlice";
-// import { setItemList } from "../features/itemSlice";
 
 const generateRandomId = (length) => {
   const characters =
@@ -19,143 +18,7 @@ const generateRandomId = (length) => {
   return randomId;
 };
 const Invoices = () => {
-  // const [invoices, setInvoices] = useState([
-  //   {
-  //     code: "RT3080",
-  //     date: "2021-8-18",
-  //     bill_to: "Jensen Huang",
-  //     price: "1800.9",
-  //     status: "paid",
-  //     street: "19 Union Terrace",
-  //     City: "London",
-  //     Post_code: "E1 3EZ",
-  //     Country: "United Kingdom",
-  //     Email: "jensenh@mail.com",
-  //     street_Client: "106 Kendell Street",
-  //     City_Client: "Sharrington",
-  //     Post_code_Client: "NR24 5WQ",
-  //     Country_Client: "United Kingdom",
-  //     item_name: "Web Design",
-  //     qty: "1",
-  //     price_item: " 6155.91",
-  //     total: " 6155.91",
-  //   },
-  //   {
-  //     code: "XM9141",
-  //     date: "2021-8-21",
-  //     bill_to: "Alex Grim",
-  //     price: "556",
-  //     status: "pending",
-  //     street: "19 Union Terrace",
-  //     City: "London",
-  //     Post_code: "E1 3EZ",
-  //     Country: "United Kingdom",
-  //     Email: "alexgrim@mail.com",
-  //     street_Client: "84 Church Way",
-  //     City_Client: "Bradford",
-  //     Post_code_Client: "BD1 9PB",
-  //     Country_Client: "United Kingdom",
-  //     item_name: "Brand Guidelines",
-  //     qty: "1",
-  //     price_item: " 1800.9",
-  //     total: " 1800.9",
-  //   },
-  //   {
-  //     code: "RG0314",
-  //     date: "2021-9-24",
-  //     bill_to: "John Morrison",
-  //     price: "14002.33",
-  //     status: "paid",
-  //     street: "19 Union Terrace",
-  //     City: "London",
-  //     Post_code: "E1 3EZ",
-  //     Country: "United Kingdom",
-  //     Email: "jm@myco.com",
-  //     street_Client: "79 Dover Road",
-  //     City_Client: "Westhall",
-  //     Post_code_Client: "IP19 3PF",
-  //     Country_Client: "United Kingdom",
-  //     item_name: "Banner Design",
-  //     qty: "1",
-  //     price_item: "  156",
-  //     total: "  156",
-  //   },
-  //   {
-  //     code: "RT2080",
-  //     date: "2021-10-11",
-  //     bill_to: "Alysa Werner",
-  //     price: "102.04",
-  //     status: "pending",
-  //     street: "19 Union Terrace",
-  //     City: "London",
-  //     Post_code: "E1 3EZ",
-  //     Country: "United Kingdom",
-  //     Email: "alysa@email.co.uk",
-  //     street_Client: "63 Warwick Road",
-  //     City_Client: "Carlisle",
-  //     Post_code_Client: "CA20 2TG",
-  //     Country_Client: "United Kingdom",
-  //     item_name: "Logo Sketches",
-  //     qty: "1",
-  //     price_item: "  102.04",
-  //     total: "  102.04",
-  //   },
-  //   {
-  //     code: "AA1449",
-  //     date: "2021-10-7",
-  //     bill_to: "Mellisa Clarke",
-  //     price: "4032.33",
-  //     status: "pending",
-  //     street: "19 Union Terrace",
-  //     City: "London",
-  //     Post_code: "E1 3EZ",
-  //     Country: "United Kingdom",
-  //     Email: "mellisa.clarke@example.com",
-  //     street_Client: "46 Abbey Row",
-  //     City_Client: "Cambridge",
-  //     Post_code_Client: "CB5 6EG",
-  //     Country_Client: "United Kingdom",
-  //     item_name: "New Logo",
-  //     qty: "2",
-  //     price_item: "  1532.33",
-  //     total: "  3064",
-  //   },
-  //   {
-  //     code: "TY9141",
-  //     date: "2021-10-01",
-  //     bill_to: "Thomas Wayne",
-  //     price: "6155.91",
-  //     status: "pending",
-  //     street: "19 Union Terrace",
-  //     City: "London",
-  //     Post_code: "E1 3EZ",
-  //     Country: "United Kingdom",
-  //     Email: "thomas@dc.com",
-  //     street_Client: "",
-  //     City_Client: "Gotham",
-  //     Post_code_Client: "60457",
-  //     Country_Client: "United States of America",
-  //     item_name: "Brand Guidelines",
-  //     qty: "1",
-  //     price_item: "  2500",
-  //     total: "  2500",
-  //   },
-  //   {
-  //     code: "FV2353",
-  //     date: "2021-11-05",
-  //     bill_to: "Anita Wainwright",
-  //     price: "3102.04",
-  //     status: "pending",
-  //     street: "19 Union Terrace",
-  //     City: "London",
-  //     Post_code: "E1 3EZ",
-  //     Country: "United Kingdom",
-  //   },
-  // ]);
-
-  // const [itemList, setItemList] = useState([]);
  const {items} = useSelector((state)=> state.itemList)
- console.log(items);
   const [qtyValue, setQtyValue] = useState(0);
   const [priceValue, setPriceValue] = useState(0);
   const [dateVlaue, setDateValue] = useState("");
@@ -176,7 +39,6 @@ const Invoices = () => {
   const [country, setCountry] = useState("");
   const [isToggled, setIsToggled] = useState(false);
   const {rowInvoices} = useSelector((state)=>state.invoices)
-  // console.log(rowInvoices);
   const showModal = useSelector((state) => state.showModal);
   const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
@@ -236,12 +98,6 @@ const Invoices = () => {
     setQtyValue("");
     setPriceValue("");
   };
-
-  const resetItem = ()=>{
-    setQtyValue(0);
-
-  }
-
 
   const handleRemoveLastItem = () => {
     if (items.length > 0) {
@@ -406,7 +262,7 @@ const Invoices = () => {
                       </span>
                     </div>
                     <div className="flex gap-12 items-center">
-                      <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${invoice.total}`}</p>
+                      <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${invoice.price_item*invoice.qty}`}</p>
                       <div
                         className={`${
                           invoice.status === "paid"
@@ -747,7 +603,6 @@ const Invoices = () => {
                         code: generateRandomId(6),
                         date: dateVlaue,
                         bill_to: nameVlaue,
-                        price: totalVlaue,
                         status: "draft",
                         street: street,
                         City: city,
@@ -771,7 +626,7 @@ const Invoices = () => {
                   Save as Draft
                 </button>
                 <button
-                  className="h-12 rounded-3xl text-white bg-save_button py-2 px-3 text-center text-nowrap text-sm font-bold dark:text-indigo-700"
+                  className="h-12 rounded-3xl text-white bg-violet-400 hover:bg-violet-600 py-2 px-3 text-center text-nowrap text-sm font-bold dark:text-indigo-700"
                   onClick={() => {
                     dispatch(setInvoices([
                        ...rowInvoices,
@@ -779,7 +634,6 @@ const Invoices = () => {
                         code: generateRandomId(6),
                         date: dateVlaue,
                         bill_to: nameVlaue,
-                        price: priceValue,
                         status: "pending",
                         street: street,
                         City: city,
