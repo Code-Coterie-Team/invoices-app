@@ -148,7 +148,7 @@ const Invoices = () => {
                   Invoices
                 </h1>
                 <span className="text-invoices_text text-sm dark:text-dark-primary-1000">
-                  There are 7 total invoices
+                  There are {rowInvoices.length} total invoices
                 </span>
               </div>
               <div className="flex gap-4 items-center justify-center relative">
