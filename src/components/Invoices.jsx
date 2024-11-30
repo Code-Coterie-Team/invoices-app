@@ -136,6 +136,15 @@ const Invoices = () => {
     }
   }, [theme]);
 
+  useEffect(() => {
+    const storeData =localStorage.getItem('saveNewData');
+    if(storeData){
+        const parsedData = storeData ? JSON.parse(storeData) : [];
+    
+        dispatch(setInvoices(parsedData));
+    }
+    }, [dispatch]); 
+
   return (
     <>
       <div className="flex h-full w-screen">
@@ -619,6 +628,28 @@ const Invoices = () => {
                         total: totalVlaue,
                       },
                     ]));
+                    localStorage.setItem('saveNewData', JSON.stringify([
+                      ...rowInvoices,
+                     {
+                       code: generateRandomId(6),
+                       date: dateVlaue,
+                       bill_to: nameVlaue,
+                       status: "draft",
+                       street: street,
+                       City: city,
+                       Post_code:postCode,
+                       Country: country,
+                       Email: emailVlaue,
+                       street_Client: streetClientVlaue,
+                       City_Client: cityVlaue,
+                       Post_code_Client: postCodeVlaue,
+                       Country_Client: countryVlaue,
+                       item_name: nameItemVlaue,
+                       qty: qtyValue,
+                       price_item: priceValue,
+                       total: totalVlaue,
+                     },
+                   ]));
                     resetForm();
                     dispatch(setShowModal(false));
                   }}
@@ -650,6 +681,28 @@ const Invoices = () => {
                         total: totalVlaue,
                       },
                     ]));
+                    localStorage.setItem('saveNewData', JSON.stringify([
+                      ...rowInvoices,
+                     {
+                       code: generateRandomId(6),
+                       date: dateVlaue,
+                       bill_to: nameVlaue,
+                       status: "pending",
+                       street: street,
+                       City: city,
+                       Post_code:postCode,
+                       Country: country,
+                       Email: emailVlaue,
+                       street_Client: streetClientVlaue,
+                       City_Client: cityVlaue,
+                       Post_code_Client: postCodeVlaue,
+                       Country_Client: countryVlaue,
+                       item_name: nameItemVlaue,
+                       qty: qtyValue,
+                       price_item: priceValue,
+                       total: totalVlaue,
+                     },
+                   ]));
                     resetForm();
                     dispatch(setShowModal(false));
                   }}

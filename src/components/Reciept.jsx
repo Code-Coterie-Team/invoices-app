@@ -10,10 +10,8 @@ const Reciept = () => {
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const {rowInvoices} = useSelector((state)=>state.invoices);
-  // console.log(rowInvoices);
 
   const { selectRow } = useSelector((state) => state.selectRow);
-  // console.log(selectRow);
   const dispatch = useDispatch();
 
   const { theme } = useSelector((state) => state.theme);
@@ -35,6 +33,7 @@ const Reciept = () => {
     const updateInvoice = rowInvoices.filter((rowInvoice)=> rowInvoice.code !== selectRow.code )
     console.log(updateInvoice);
     dispatch(setInvoices(updateInvoice));
+    localStorage.setItem('saveNewData', JSON.stringify(updateInvoice));
 
     navigate("/")
 
@@ -196,7 +195,7 @@ const Reciept = () => {
         <div className="w-[480px] bg-white rounded-md absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] px-10 py-16 flex flex-col gap-3">
           <p className="text-2xl font-bold">Confirm Deletion</p>
           <p className="text-sm text-information">
-            Are you sure you want to delete invoice #XM9141? This action cannot
+            Are you sure you want to delete invoice #{selectRow.code} This action cannot
             be undone.
           </p>
           <div className="flex gap-2 items-center self-end justify-center">
