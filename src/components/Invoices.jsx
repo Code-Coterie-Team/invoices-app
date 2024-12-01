@@ -6,6 +6,7 @@ import { setSelectRow } from "../features/selectRowSlice";
 import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
 import { setItemList } from "../features/itemSlice";
+import Itemlist from "./Itemlist";
 
 const generateRandomId = (length) => {
   const characters =
@@ -18,7 +19,7 @@ const generateRandomId = (length) => {
   return randomId;
 };
 const Invoices = () => {
- const {items} = useSelector((state)=> state.itemList)
+  const { items } = useSelector((state) => state.itemList);
   const [qtyValue, setQtyValue] = useState(0);
   const [priceValue, setPriceValue] = useState(0);
   const [dateVlaue, setDateValue] = useState("");
@@ -38,7 +39,7 @@ const Invoices = () => {
   const [postCode, setPostCode] = useState("");
   const [country, setCountry] = useState("");
   const [isToggled, setIsToggled] = useState(false);
-  const {rowInvoices} = useSelector((state)=>state.invoices)
+  const { rowInvoices } = useSelector((state) => state.invoices);
   const showModal = useSelector((state) => state.showModal);
   const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
@@ -47,7 +48,6 @@ const Invoices = () => {
 
   const handleChangeQty = (event) => {
     setQtyValue(event.target.value);
-      
   };
   const handleChangePrice = (event) => {
     setPriceValue(event.target.value);
@@ -112,12 +112,12 @@ const Invoices = () => {
 
   const handleClickFilter = (value) => {
     if (activeFilter === value) {
-      setActiveFilter(""); 
-      setIsToggled(false); 
+      setActiveFilter("");
+      setIsToggled(false);
       setFilterValue("");
     } else {
-      setActiveFilter(value); 
-      setIsToggled(true); 
+      setActiveFilter(value);
+      setIsToggled(true);
       setFilterValue(value);
     }
   };
@@ -137,13 +137,13 @@ const Invoices = () => {
   }, [theme]);
 
   useEffect(() => {
-    const storeData =localStorage.getItem('saveNewData');
-    if(storeData){
-        const parsedData = storeData ? JSON.parse(storeData) : [];
-    
-        dispatch(setInvoices(parsedData));
+    const storeData = localStorage.getItem("saveNewData");
+    if (storeData) {
+      const parsedData = storeData ? JSON.parse(storeData) : [];
+
+      dispatch(setInvoices(parsedData));
     }
-    }, [dispatch]); 
+  }, [dispatch]);
 
   return (
     <>
@@ -197,7 +197,7 @@ const Invoices = () => {
                             activeFilter === "draft" && isToggled
                               ? "url('/src/assets/icon-check.svg')"
                               : "none",
-                          backgroundSize:"15px"
+                          backgroundSize: "15px",
                         }}
                       ></div>
                       <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
@@ -215,7 +215,7 @@ const Invoices = () => {
                             activeFilter === "pending" && isToggled
                               ? "url('/src/assets/icon-check.svg')"
                               : "none",
-                          backgroundSize:"15px"
+                          backgroundSize: "15px",
                         }}
                       ></div>
                       <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
@@ -224,7 +224,7 @@ const Invoices = () => {
                     </div>
                     <div className="flex items-center justify-start w-full gap-3">
                       <div
-                         className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${
+                        className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${
                           activeFilter === "paid" ? "bg-purple-700" : ""
                         }`}
                         onClick={() => handleClickFilter("paid")}
@@ -233,7 +233,7 @@ const Invoices = () => {
                             activeFilter === "paid" && isToggled
                               ? "url('/src/assets/icon-check.svg')"
                               : "none",
-                          backgroundSize:"15px"
+                          backgroundSize: "15px",
                         }}
                       ></div>
                       <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
@@ -271,7 +271,9 @@ const Invoices = () => {
                       </span>
                     </div>
                     <div className="flex gap-12 items-center">
-                      <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${invoice.price_item*invoice.qty}`}</p>
+                      <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${
+                        invoice.price_item * invoice.qty
+                      }`}</p>
                       <div
                         className={`${
                           invoice.status === "paid"
@@ -326,8 +328,8 @@ const Invoices = () => {
                   Street Address
                 </label>
                 <input
-                value={street}
-                onChange={handleChangeStreet}
+                  value={street}
+                  onChange={handleChangeStreet}
                   required
                   type="text"
                   name="Street"
@@ -358,8 +360,8 @@ const Invoices = () => {
                     Post Code
                   </label>
                   <input
-                  value={postCode}
-                  onChange = {handleChangePostCode}
+                    value={postCode}
+                    onChange={handleChangePostCode}
                     required
                     type="text"
                     name="Post Code"
@@ -372,8 +374,8 @@ const Invoices = () => {
                     Country
                   </label>
                   <input
-                  value={country}
-                  onChange={handleChangeCountry}
+                    value={country}
+                    onChange={handleChangeCountry}
                     required
                     type="text"
                     name="Country"
@@ -543,45 +545,8 @@ const Invoices = () => {
               </ul>
               <div>
                 {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex mb-3 items-center justify-between "
-                  >
-                    <input
-                      type="text"
-                      className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500  dark:text-information"
-                      value={nameItemVlaue}
-                      onChange={handleChangeItemName}
-                    />
-                    <input
-                      type="text"
-                      className=" w-20 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500 dark:text-information"
-                      value={qtyValue}
-                      onChange={handleChangeQty}
-                    />
-                    <input
-                      type="text"
-                      className=" w-20 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500 dark:text-information"
-                      value={priceValue}
-                      onChange={handleChangePrice}
-                    />
-                    <input
-                      type="text"
-                      className=" w-28 outline-none border-[#dfe3fa] border-solid border-[1px] py-2 px-4  rounded-md font-bold text-sm dark:bg-dark-primary-500 dark:text-information"
-                      value={qtyValue*priceValue}
-                      onChange={handleChangeTotal}
-                    />
-                    <div className="w-4 h-5">
-                      <img
-                        src="/src/assets/icon-delete.svg"
-                        alt=""
-                        className="hover:bg-red-600"
-                        onClick={handleRemoveLastItem}
-                      />
-                    </div>
-                  </div>
+                  <Itemlist key={item.id} />
                 ))}
-                
               </div>
 
               <button
@@ -606,50 +571,55 @@ const Invoices = () => {
                 <button
                   className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black "
                   onClick={() => {
-                    dispatch(setInvoices(  [
-                       ...rowInvoices,
-                      {
-                        code: generateRandomId(6),
-                        date: dateVlaue,
-                        bill_to: nameVlaue,
-                        status: "draft",
-                        street: street,
-                        City: city,
-                        Post_code:postCode,
-                        Country: country,
-                        Email: emailVlaue,
-                        street_Client: streetClientVlaue,
-                        City_Client: cityVlaue,
-                        Post_code_Client: postCodeVlaue,
-                        Country_Client: countryVlaue,
-                        item_name: nameItemVlaue,
-                        qty: qtyValue,
-                        price_item: priceValue,
-                        total: totalVlaue,
-                      },
-                    ]));
-                    localStorage.setItem('saveNewData', JSON.stringify([
-                      ...rowInvoices,
-                     {
-                       code: generateRandomId(6),
-                       date: dateVlaue,
-                       bill_to: nameVlaue,
-                       status: "draft",
-                       street: street,
-                       City: city,
-                       Post_code:postCode,
-                       Country: country,
-                       Email: emailVlaue,
-                       street_Client: streetClientVlaue,
-                       City_Client: cityVlaue,
-                       Post_code_Client: postCodeVlaue,
-                       Country_Client: countryVlaue,
-                       item_name: nameItemVlaue,
-                       qty: qtyValue,
-                       price_item: priceValue,
-                       total: totalVlaue,
-                     },
-                   ]));
+                    dispatch(
+                      setInvoices([
+                        ...rowInvoices,
+                        {
+                          code: generateRandomId(6),
+                          date: dateVlaue,
+                          bill_to: nameVlaue,
+                          status: "draft",
+                          street: street,
+                          City: city,
+                          Post_code: postCode,
+                          Country: country,
+                          Email: emailVlaue,
+                          street_Client: streetClientVlaue,
+                          City_Client: cityVlaue,
+                          Post_code_Client: postCodeVlaue,
+                          Country_Client: countryVlaue,
+                          item_name: nameItemVlaue,
+                          qty: qtyValue,
+                          price_item: priceValue,
+                          total: totalVlaue,
+                        },
+                      ])
+                    );
+                    localStorage.setItem(
+                      "saveNewData",
+                      JSON.stringify([
+                        ...rowInvoices,
+                        {
+                          code: generateRandomId(6),
+                          date: dateVlaue,
+                          bill_to: nameVlaue,
+                          status: "draft",
+                          street: street,
+                          City: city,
+                          Post_code: postCode,
+                          Country: country,
+                          Email: emailVlaue,
+                          street_Client: streetClientVlaue,
+                          City_Client: cityVlaue,
+                          Post_code_Client: postCodeVlaue,
+                          Country_Client: countryVlaue,
+                          item_name: nameItemVlaue,
+                          qty: qtyValue,
+                          price_item: priceValue,
+                          total: totalVlaue,
+                        },
+                      ])
+                    );
                     resetForm();
                     dispatch(setShowModal(false));
                   }}
@@ -659,50 +629,55 @@ const Invoices = () => {
                 <button
                   className="h-12 rounded-3xl text-white bg-violet-400 hover:bg-violet-600 py-2 px-3 text-center text-nowrap text-sm font-bold dark:text-indigo-700"
                   onClick={() => {
-                    dispatch(setInvoices([
-                       ...rowInvoices,
-                      {
-                        code: generateRandomId(6),
-                        date: dateVlaue,
-                        bill_to: nameVlaue,
-                        status: "pending",
-                        street: street,
-                        City: city,
-                        Post_code:postCode,
-                        Country: country,
-                        Email: emailVlaue,
-                        street_Client: streetClientVlaue,
-                        City_Client: cityVlaue,
-                        Post_code_Client: postCodeVlaue,
-                        Country_Client: countryVlaue,
-                        item_name: nameItemVlaue,
-                        qty: qtyValue,
-                        price_item: priceValue,
-                        total: totalVlaue,
-                      },
-                    ]));
-                    localStorage.setItem('saveNewData', JSON.stringify([
-                      ...rowInvoices,
-                     {
-                       code: generateRandomId(6),
-                       date: dateVlaue,
-                       bill_to: nameVlaue,
-                       status: "pending",
-                       street: street,
-                       City: city,
-                       Post_code:postCode,
-                       Country: country,
-                       Email: emailVlaue,
-                       street_Client: streetClientVlaue,
-                       City_Client: cityVlaue,
-                       Post_code_Client: postCodeVlaue,
-                       Country_Client: countryVlaue,
-                       item_name: nameItemVlaue,
-                       qty: qtyValue,
-                       price_item: priceValue,
-                       total: totalVlaue,
-                     },
-                   ]));
+                    dispatch(
+                      setInvoices([
+                        ...rowInvoices,
+                        {
+                          code: generateRandomId(6),
+                          date: dateVlaue,
+                          bill_to: nameVlaue,
+                          status: "pending",
+                          street: street,
+                          City: city,
+                          Post_code: postCode,
+                          Country: country,
+                          Email: emailVlaue,
+                          street_Client: streetClientVlaue,
+                          City_Client: cityVlaue,
+                          Post_code_Client: postCodeVlaue,
+                          Country_Client: countryVlaue,
+                          item_name: nameItemVlaue,
+                          qty: qtyValue,
+                          price_item: priceValue,
+                          total: totalVlaue,
+                        },
+                      ])
+                    );
+                    localStorage.setItem(
+                      "saveNewData",
+                      JSON.stringify([
+                        ...rowInvoices,
+                        {
+                          code: generateRandomId(6),
+                          date: dateVlaue,
+                          bill_to: nameVlaue,
+                          status: "pending",
+                          street: street,
+                          City: city,
+                          Post_code: postCode,
+                          Country: country,
+                          Email: emailVlaue,
+                          street_Client: streetClientVlaue,
+                          City_Client: cityVlaue,
+                          Post_code_Client: postCodeVlaue,
+                          Country_Client: countryVlaue,
+                          item_name: nameItemVlaue,
+                          qty: qtyValue,
+                          price_item: priceValue,
+                          total: totalVlaue,
+                        },
+                      ])
+                    );
                     resetForm();
                     dispatch(setShowModal(false));
                   }}
