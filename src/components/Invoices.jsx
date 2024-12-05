@@ -8,30 +8,22 @@ import { setInvoices } from "../features/invoicesSlice";
 import { setItemList } from "../features/itemSlice";
 import Itemlist from "./Itemlist";
 
-const generateRandomId = (length) => {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let randomId = "";
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    randomId += characters[randomIndex];
-  }
-  return randomId;
-};
+
 const Invoices = () => {
+  const { rowInvoices } = useSelector((state) => state.invoices);
   const { items } = useSelector((state) => state.itemList);
-  const [qtyValue, setQtyValue] = useState(0);
-  const [priceValue, setPriceValue] = useState(0);
+  const showModal = useSelector((state) => state.showModal);
   const [dateVlaue, setDateValue] = useState("");
-  const [nameItemVlaue, setNameItemValue] = useState("");
+  const [nameItemVlaue] = useState("");
   const [streetClientVlaue, setstreetClientValue] = useState("");
   const [emailVlaue, setEmailValue] = useState("");
   const [nameVlaue, setNameValue] = useState("");
   const [cityVlaue, setCityValue] = useState("");
   const [postCodeVlaue, setPostCodeValue] = useState("");
   const [countryVlaue, setCountryValue] = useState("");
+  const [qtyValue, setQtyValue] = useState(0);
+  const [priceValue, setPriceValue] = useState(0);
   const [totalVlaue, setTotalValue] = useState("");
-  console.log(totalVlaue);
   const [filterValue, setFilterValue] = useState("");
   const [activeFilter, setActiveFilter] = useState("");
   const [street, setstreet] = useState("");
@@ -39,27 +31,16 @@ const Invoices = () => {
   const [postCode, setPostCode] = useState("");
   const [country, setCountry] = useState("");
   const [isToggled, setIsToggled] = useState(false);
-  const { rowInvoices } = useSelector((state) => state.invoices);
-  const showModal = useSelector((state) => state.showModal);
   const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const handleChangeQty = (event) => {
-    setQtyValue(event.target.value);
-  };
-  const handleChangePrice = (event) => {
-    setPriceValue(event.target.value);
-  };
   const handleChangeDate = (event) => {
     setDateValue(event.target.value);
   };
   const handleChangeName = (event) => {
     setNameValue(event.target.value);
-  };
-  const handleChangeTotal = (event) => {
-    setTotalValue(event.target.value);
   };
   const handleChangeEmail = (event) => {
     setEmailValue(event.target.value);
@@ -88,9 +69,7 @@ const Invoices = () => {
   const handleChangeCountry = (event) => {
     setCountry(event.target.value);
   };
-  const handleChangeItemName = (event) => {
-    setNameItemValue(event.target.value);
-  };
+
   const resetForm = () => {
     setTotalValue("");
     setNameValue("");
@@ -99,11 +78,6 @@ const Invoices = () => {
     setPriceValue("");
   };
 
-  const handleRemoveLastItem = () => {
-    if (items.length > 0) {
-      dispatch(setItemList(items.slice(0, items.length - 1)));
-    }
-  };
   const handleSelectRow = (invoice) => {
     dispatch(setSelectRow(invoice));
     navigate("/reciept");
@@ -126,6 +100,18 @@ const Invoices = () => {
     setShowFilter((currentState) => !currentState);
   };
 
+
+  const generateRandomId = (length) => {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let randomId = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomId += characters[randomIndex];
+    }
+    return randomId;
+  };
+
   const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
@@ -144,6 +130,10 @@ const Invoices = () => {
       dispatch(setInvoices(parsedData));
     }
   }, [dispatch]);
+
+  
+
+  
 
   return (
     <>
@@ -272,8 +262,7 @@ const Invoices = () => {
                     </div>
                     <div className="flex gap-12 items-center">
                       <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${
-                        invoice.price_item * invoice.qty
-                      }`}</p>
+                        invoice.price_item * invoice.qty}`}</p>
                       <div
                         className={`${
                           invoice.status === "paid"
@@ -545,7 +534,7 @@ const Invoices = () => {
               </ul>
               <div>
                 {items.map((item) => (
-                  <Itemlist key={item.id} />
+                  <Itemlist key={item.id} qtyValue={qtyValue} priceValue={priceValue} totalVlaue={totalVlaue}/>
                 ))}
               </div>
 

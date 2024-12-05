@@ -16,6 +16,8 @@ const Reciept = () => {
 
   const { theme } = useSelector((state) => state.theme);
 
+  const {items} = useSelector((state)=> state.itemList);
+
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
