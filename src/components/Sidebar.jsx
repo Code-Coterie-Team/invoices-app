@@ -14,7 +14,7 @@ const Sidebar = ()=> {
 
 
   return (
-    <div>
+    <div className="relative z-20">
       <div className='flex items-center justify-between flex-col w-24 bg-sidebar
        rounded-tl-none rounded-tr-2xl rounded-br-2xl rounded-bl-none fixed top-0 bottom-0 left-0'>
         <img src="/src/assets/icon.png" alt="" className='w-24 h-24' />

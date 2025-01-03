@@ -5,6 +5,8 @@ import { setSelectRow } from "../features/selectRowSlice";
 import { useEffect, useState } from "react";
 import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
+import clsx from "clsx";
+import Layout from "./layout";
 
 const Reciept = () => {
   const navigate = useNavigate();
@@ -33,7 +35,6 @@ const Reciept = () => {
 
   const deleteInvoice = ()=>{
     const updateInvoice = rowInvoices.filter((rowInvoice)=> rowInvoice.code !== selectRow.code )
-    console.log(updateInvoice);
     dispatch(setInvoices(updateInvoice));
     localStorage.setItem('saveNewData', JSON.stringify(updateInvoice));
 
@@ -45,8 +46,8 @@ const Reciept = () => {
 
 
   return (
-    <div className="flex h-full w-screen">
-      <Sidebar />
+    <Layout>
+          <div className="flex h-full w-screen  ">
       <div className="w-screen h-full bg-invoices flex justify-center dark:bg-dark-primary-300">
         <div className="flex flex-col w-7/12 gap-6 h-screen p-16">
           <button
@@ -65,36 +66,27 @@ const Reciept = () => {
           <div className="w-full p-5 bg-white rounded-md flex justify-between  dark:bg-dark-primary-100">
             <div className="flex gap-3 items-center">
               <span className="text-sm text-information">Status</span>
-              <div
-                className={`${
-                  selectRow.status === "paid" ? "bg-paid" : "bg-pending"
-                } rounded-lg p-2 w-24 flex gap-3 items-center`}
-              >
-                <div
-                  className={`${
-                    selectRow.status === "paid"
-                      ? "bg-paid_text"
-                      : "bg-pending_text"
-                  } w-2 h-2 rounded-full`}
-                ></div>
-                <span
-                  className={`${
-                    selectRow.status === "paid"
-                      ? "text-paid_text"
-                      : "text-pending_text"
-                  } text-xs font-medium`}
-                >
-                  {selectRow.status}
-                </span>
+                <div className={clsx("rounded-lg p-2 w-24 flex gap-3 items-center",{
+                  "bg-paid" : selectRow.status === "paid",
+                  "bg-pending" : selectRow.status === "pending",
+                  "bg-gray-200" : selectRow.status === "draft",
+                })}>
+                <span className={clsx("text-xs font-medium",{
+                  "text-paid_text" : selectRow.status === "paid" , 
+                  "text-pending_text" : selectRow.status === "pending",
+                  "text-black" : selectRow.status === "draft",
+                 
+                },
+                )}>{selectRow.status}</span>
               </div>
             </div>
             <div className="flex gap-9 p-2 items-center">
-              <button className="w-20 text-[#7e88c3] text-sm font-bold rounded-3xl hover:bg-violet-200  p-2"
+              {/* <button className="w-20 text-[#7e88c3] text-sm font-bold rounded-3xl hover:bg-violet-200  p-2"
               onClick={()=>dispatch(setShowModal(true))
               }
               >
                 Edit
-              </button>
+              </button> */}
               <button
                 className="w-24 bg-delete_button rounded-3xl p-2 hover:bg-[#ff9797] text-white text-sm font-bold"
                 onClick={()=>setShowDeleteModal(true)}
@@ -214,6 +206,8 @@ const Reciept = () => {
       </div>)}
 
     </div>
+    </Layout>
+
   );
 };
 

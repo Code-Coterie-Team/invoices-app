@@ -6,8 +6,6 @@ import { setInvoices } from '../features/invoicesSlice';
 const Itemlist = ()=> {
     const [qtyValue, setQtyValue] = useState(0);
     const [priceValue, setPriceValue] = useState(0);
-    console.log(priceValue);
-    console.log(qtyValue);
     const [nameItemVlaue, setNameItemValue] = useState("");
     const {items} = useSelector((state)=> state.itemList);
     const dispatch = useDispatch();
@@ -66,6 +64,7 @@ const Itemlist = ()=> {
       value={totalVlaue}
     />
     <div className="w-4 h-5">
+      {/* svg */}
       <img
         src="/src/assets/icon-delete.svg"
         alt=""

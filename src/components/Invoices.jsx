@@ -7,6 +7,8 @@ import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
 import { setItemList } from "../features/itemSlice";
 import Itemlist from "./Itemlist";
+import Layout from "./layout";
+import clsx from "clsx";
 
 
 const Invoices = () => {
@@ -81,7 +83,6 @@ const Invoices = () => {
   const handleSelectRow = (invoice) => {
     dispatch(setSelectRow(invoice));
     navigate("/reciept");
-    console.log(invoice);
   };
 
   const handleClickFilter = (value) => {
@@ -136,8 +137,9 @@ const Invoices = () => {
   
 
   return (
-    <>
-      <div className="flex h-full w-screen">
+
+    <Layout>
+            <div className="flex h-full w-full">
         <Sidebar />
         <div className="w-screen h-full bg-invoices flex justify-center dark:bg-dark-primary-300">
           <div className="flex flex-col items-center w-6/12 py-20 gap-16 h-full">
@@ -151,7 +153,7 @@ const Invoices = () => {
                 </span>
               </div>
               <div className="flex gap-4 items-center justify-center relative">
-                <div className="flex gap-2 ">
+                <div className="flex gap-2 items-center">
                   <p className="text-sm font-bold dark:text-dark-primary-1000">
                     Filter by status
                   </p>
@@ -263,32 +265,18 @@ const Invoices = () => {
                     <div className="flex gap-12 items-center">
                       <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${
                         invoice.price_item * invoice.qty}`}</p>
-                      <div
-                        className={`${
-                          invoice.status === "paid"
-                            ? "bg-paid"
-                            : invoice.status === "pending"
-                            ? "bg-pending"
-                            : "bg-gray-200"
-                        } rounded-lg p-2 w-24 flex gap-3 items-center`}
-                      >
                         <div
-                          className={`${
-                            invoice.status === "paid"
-                              ? "bg-paid_text"
-                              : invoice.status === "pending"
-                              ? "bg-pending_text"
-                              : "bg-black"
-                          } w-2 h-2 rounded-full`}
-                        ></div>
+                        className={clsx(" rounded-lg p-2 w-24 flex gap-3 items-center",{
+                          "bg-paid" : invoice.status === "paid",
+                          "bg-pending" : invoice.status === "pending",
+                          "bg-gray-200" : invoice.status === "draft"
+                        })}
+                      >
                         <span
-                          className={`${
-                            invoice.status === "paid"
-                              ? "text-paid_text"
-                              : invoice.status === "pending"
-                              ? "text-pending_text"
-                              : "text-black"
-                          } text-xs font-medium`}
+                          className={clsx("text-xs font-medium",{
+                            "text-paid_text" : invoice.status === "paid",
+                            "text-pending_text" : invoice.status === "pending",
+                            "text-black" : invoice.status === "draft",})}
                         >
                           {invoice.status}
                         </span>
@@ -307,9 +295,8 @@ const Invoices = () => {
         </div>
       </div>
       {showModal && (
-        <div className="w-screen h-full bg-black/40 fixed top-0 left-0">
-          <Sidebar />
-          <div className="w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20 overflow-auto dark:bg-dark-primary-400">
+        <div className="z-0 w-screen h-full bg-black/40 fixed top-0 left-0">
+          <div className=" w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20 overflow-auto dark:bg-dark-primary-400">
             <div className="w-full flex flex-col gap-5">
               <span className="text-sm text-Billform font-bold">Bill Form</span>
               <form action="Street" className="flex flex-col gap-4">
@@ -678,7 +665,8 @@ const Invoices = () => {
           </div>
         </div>
       )}
-    </>
+    </Layout>
+
   );
 };
 
