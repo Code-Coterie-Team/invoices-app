@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
 import clsx from "clsx";
-import Layout from "./layout";
+import Layout from "./Layout";
 
 const Reciept = () => {
   const navigate = useNavigate();

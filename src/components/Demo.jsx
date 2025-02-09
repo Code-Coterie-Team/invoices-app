@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import Layout from './layout';
+import Layout from './Layout';
 
 const Demo = ()=> {
   

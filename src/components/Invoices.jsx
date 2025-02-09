@@ -7,7 +7,7 @@ import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
 import { setItemList } from "../features/itemSlice";
 import Itemlist from "./Itemlist";
-import Layout from "./layout";
+import Layout from "./Layout";
 import clsx from "clsx";
 
 
