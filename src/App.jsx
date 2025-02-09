@@ -3,7 +3,6 @@ import Invoices from "./components/Invoices";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Demo from "./components/Demo";
 import Reciept from "./components/Reciept";
-import Layout from "./components/layout";
 
 const App = () => {
   const navigate = useNavigate();

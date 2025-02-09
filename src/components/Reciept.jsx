@@ -81,12 +81,12 @@ const Reciept = () => {
               </div>
             </div>
             <div className="flex gap-9 p-2 items-center">
-              {/* <button className="w-20 text-[#7e88c3] text-sm font-bold rounded-3xl hover:bg-violet-200  p-2"
+              <button className="w-20 text-[#7e88c3] text-sm font-bold rounded-3xl hover:bg-violet-200  p-2"
               onClick={()=>dispatch(setShowModal(true))
               }
               >
                 Edit
-              </button> */}
+              </button>
               <button
                 className="w-24 bg-delete_button rounded-3xl p-2 hover:bg-[#ff9797] text-white text-sm font-bold"
                 onClick={()=>setShowDeleteModal(true)}
