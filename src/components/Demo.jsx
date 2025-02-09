@@ -5,7 +5,6 @@ import Layout from './layout';
 
 const Demo = ()=> {
   
-  const dispatch = useDispatch();
 
   const { theme } = useSelector((state) => state.theme);
 
