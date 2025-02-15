@@ -56,7 +56,7 @@ const Reciept = () => {
           >
             <div>
               <img
-                src="/src/assets/icon-arrow-left..svg"
+                src="/icon-arrow-left..svg"
                 alt=""
                 className="w-2 h-2 "
               />

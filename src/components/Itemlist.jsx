@@ -66,7 +66,7 @@ const Itemlist = ()=> {
     <div className="w-4 h-5">
       {/* svg */}
       <img
-        src="/src/assets/icon-delete.svg"
+        src="/icon-delete.svg"
         alt=""
         className="hover:bg-red-600"
         onClick={handleRemoveLastItem}

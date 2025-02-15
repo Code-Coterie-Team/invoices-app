@@ -159,7 +159,7 @@ const Invoices = () => {
                   </p>
                   <div className=" w-3">
                     <img
-                      src="/src/assets/icon-arrow-down.a6ed7bfffecda935c666.svg"
+                      src="/icon-arrow-down.a6ed7bfffecda935c666.svg"
                       alt=""
                       onClick={() => toggle()}
                     />
@@ -170,7 +170,7 @@ const Invoices = () => {
                   onClick={() => dispatch(setShowModal(true))}
                 >
                   <div className="w-7 h-7 rounded-full bg-white">
-                    <img src="/src/assets/download.png" alt="" />
+                    <img src="/download.png" alt="" />
                   </div>
                   <span className="text-white text-sm font-medium">
                     New Invoice
@@ -283,7 +283,7 @@ const Invoices = () => {
                       </div>
                       <div>
                         <img
-                          src="/src/assets/icon-arrow-right.9e19be64001504a17c14.svg"
+                          src="/icon-arrow-right.9e19be64001504a17c14.svg"
                           alt=""
                         />
                       </div>
