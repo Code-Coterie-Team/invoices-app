@@ -17,7 +17,7 @@ const { theme } = useSelector((state) => state.theme);
       }, [theme]);
 
   return (
-    <div>
+    <div className="flex h-full w-full">
       <Sidebar/>
       {props.children}
       </div>

@@ -46,8 +46,6 @@ const Reciept = () => {
 
 
   return (
-    <Layout>
-          <div className="flex h-full w-screen  ">
       <div className="w-screen h-full bg-invoices flex justify-center dark:bg-dark-primary-300">
         <div className="flex flex-col w-7/12 gap-6 h-screen p-16">
           <button
@@ -184,7 +182,6 @@ const Reciept = () => {
             </div>
           </div>
         </div>
-      </div>
       {showDeleteModal && (<div className="w-screen h-full bg-black/30 fixed top-0 left-0">
         <div className="w-[480px] bg-white rounded-md absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] px-10 py-16 flex flex-col gap-3">
           <p className="text-2xl font-bold">Confirm Deletion</p>
@@ -206,7 +203,6 @@ const Reciept = () => {
       </div>)}
 
     </div>
-    </Layout>
 
   );
 };

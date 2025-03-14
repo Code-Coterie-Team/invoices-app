@@ -20,10 +20,7 @@ const Demo = ()=> {
 
 const navigate = useNavigate();
   return (
-
-    <Layout>
-      <div className='flex h-screen'>
-      <div className='w-full bg-black/40 h-full dark:bg-dark-primary-200'>
+      <div className='w-screen h-screen bg-black/40 flex justify-center dark:bg-dark-primary-200' >
         <div className='w-[480px] h-72 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
         rounded-lg flex flex-col items-center p-12 gap-4 dark:bg-dark-primary-100'>
             <img src="/icon.png" alt="" className='w-24 h-24' />
@@ -32,12 +29,8 @@ const navigate = useNavigate();
             font-bold hover:bg-indigo-100' onClick={()=>navigate("/")}>View as Demo</button>
             </div>
     </div> 
-    </div>
-    </Layout>
 
 
   )
 }
-
-
 export default Demo

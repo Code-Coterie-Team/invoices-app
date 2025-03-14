@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
+// import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setSelectRow } from "../features/selectRowSlice";
@@ -7,7 +7,7 @@ import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
 import { setItemList } from "../features/itemSlice";
 import Itemlist from "./Itemlist";
-import Layout from "./Layout";
+// import Layout from "./Layout";
 import clsx from "clsx";
 
 
@@ -138,9 +138,7 @@ const Invoices = () => {
 
   return (
 
-    <Layout>
-            <div className="flex h-full w-full">
-        <Sidebar />
+      <>
         <div className="w-screen h-full bg-invoices flex justify-center dark:bg-dark-primary-300">
           <div className="flex flex-col items-center w-6/12 py-20 gap-16 h-full">
             <div className="flex justify-between w-full">
@@ -293,7 +291,6 @@ const Invoices = () => {
             </div>
           </div>
         </div>
-      </div>
       {showModal && (
         <div className="z-0 w-screen h-full bg-black/40 fixed top-0 left-0">
           <div className=" w-6/12 h-full bg-white rounded-2xl flex flex-col px-36 py-14 gap-20 overflow-auto dark:bg-dark-primary-400">
@@ -665,7 +662,7 @@ const Invoices = () => {
           </div>
         </div>
       )}
-    </Layout>
+    </>
 
   );
 };
