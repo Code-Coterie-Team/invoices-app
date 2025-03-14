@@ -6,12 +6,12 @@ import { setShowModal } from "../features/modalSlice";
 import { setInvoices } from "../features/invoicesSlice";
 import clsx from "clsx";
 import Modal from "./Modal";
+import FilterSection from "./FilterSection";
 
 const Invoices = () => {
   const { rowInvoices } = useSelector((state) => state.invoices);
-  const [filterValue, setFilterValue] = useState("");
-  const [activeFilter, setActiveFilter] = useState("");
-  const [isToggled, setIsToggled] = useState(false);
+  // const [filterValue, setFilterValue] = useState("");
+  const { value } = useSelector((state) => state.filterValue);
   const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
 
@@ -20,18 +20,6 @@ const Invoices = () => {
   const handleSelectRow = (invoice) => {
     dispatch(setSelectRow(invoice));
     navigate("/reciept");
-  };
-
-  const handleClickFilter = (value) => {
-    if (activeFilter === value) {
-      setActiveFilter("");
-      setIsToggled(false);
-      setFilterValue("");
-    } else {
-      setActiveFilter(value);
-      setIsToggled(true);
-      setFilterValue(value);
-    }
   };
 
   const toggle = () => {
@@ -96,71 +84,15 @@ const Invoices = () => {
                   New Invoice
                 </span>
               </button>
-              {showFilter && (
-                <div className="w-48 bg-white p-6 absolute right-20 -bottom-36 flex flex-col h-36 gap-5 rounded-md dark:bg-dark-primary-100 shadow-custom-light">
-                  <div className="flex items-center w-full gap-3">
-                    <div
-                      className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${
-                        activeFilter === "draft" ? "bg-purple-700" : ""
-                      }`}
-                      onClick={() => handleClickFilter("draft")}
-                      style={{
-                        backgroundImage:
-                          activeFilter === "draft" && isToggled
-                            ? "url('/src/assets/icon-check.svg')"
-                            : "none",
-                        backgroundSize: "15px",
-                      }}
-                    ></div>
-                    <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
-                      Draft
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-start w-full gap-3">
-                    <div
-                      className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${
-                        activeFilter === "pending" ? "bg-purple-700" : ""
-                      }`}
-                      onClick={() => handleClickFilter("pending")}
-                      style={{
-                        backgroundImage:
-                          activeFilter === "pending" && isToggled
-                            ? "url('/src/assets/icon-check.svg')"
-                            : "none",
-                        backgroundSize: "15px",
-                      }}
-                    ></div>
-                    <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
-                      Pending
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-start w-full gap-3">
-                    <div
-                      className={`bg-gray-200 h-4 w-4 rounded-sm bg-no-repeat bg-cover ${
-                        activeFilter === "paid" ? "bg-purple-700" : ""
-                      }`}
-                      onClick={() => handleClickFilter("paid")}
-                      style={{
-                        backgroundImage:
-                          activeFilter === "paid" && isToggled
-                            ? "url('/src/assets/icon-check.svg')"
-                            : "none",
-                        backgroundSize: "15px",
-                      }}
-                    ></div>
-                    <p className="text-sm font-medium text-black dark:text-dark-primary-1000">
-                      Paid
-                    </p>
-                  </div>
-                </div>
-              )}
+
+              {showFilter && <FilterSection />}
             </div>
           </div>
           <div className="w-full h-full grid grid-cols-1 grid-rows-7 gap-y-4">
             {rowInvoices
               .filter((invoice) => {
-                if (filterValue == "") return invoice;
-                return invoice.status === filterValue.toLowerCase();
+                if (value == "") return invoice;
+                return invoice.status === value.toLowerCase();
               })
               .map((invoice, index) => (
                 <div
