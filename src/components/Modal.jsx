@@ -12,7 +12,7 @@ const Modal = () => {
   const [postCode, setPostCode] = useState("");
   const [country, setCountry] = useState("");
   const { items } = useSelector((state) => state.itemList);
-  const rowInvoices = useSelector((state) => state.rowInvoices);
+  const rowInvoices = useSelector((state) => state.invoices.rowInvoices) || [];
   const [dateVlaue, setDateValue] = useState("");
   const [nameItemVlaue] = useState("");
   const [streetClientVlaue, setstreetClientValue] = useState("");

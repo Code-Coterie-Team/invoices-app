@@ -10,7 +10,6 @@ import FilterSection from "./FilterSection";
 
 const Invoices = () => {
   const { rowInvoices } = useSelector((state) => state.invoices);
-  // const [filterValue, setFilterValue] = useState("");
   const { value } = useSelector((state) => state.filterValue);
   const [showFilter, setShowFilter] = useState(false);
   const dispatch = useDispatch();
