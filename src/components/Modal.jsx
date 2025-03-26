@@ -12,16 +12,19 @@ const Modal = () => {
   const [postCode, setPostCode] = useState("");
   const [country, setCountry] = useState("");
   const { items } = useSelector((state) => state.itemList);
+ 
   const rowInvoices = useSelector((state) => state.invoices.rowInvoices) || [];
   const [dateVlaue, setDateValue] = useState("");
-  const [nameItemVlaue] = useState("");
+
   const [streetClientVlaue, setstreetClientValue] = useState("");
   const [emailVlaue, setEmailValue] = useState("");
   const [nameVlaue, setNameValue] = useState("");
   const [cityVlaue, setCityValue] = useState("");
   const [postCodeVlaue, setPostCodeValue] = useState("");
   const [countryVlaue, setCountryValue] = useState("");
-  const [qtyValue, setQtyValue] = useState(0);
+
+  const [qtyValue, setQtyValue] = useState();
+
   const [priceValue, setPriceValue] = useState(0);
   const [totalVlaue, setTotalValue] = useState("");
   const handleChangeDate = (event) => {
@@ -150,7 +153,7 @@ const Modal = () => {
               >
                 Client’s Name
               </label>
-              <input
+              .,<input
                 required
                 value={nameVlaue}
                 onChange={handleChangeName}
@@ -296,10 +299,7 @@ const Modal = () => {
             <div>
               {items.map((item) => (
                 <Itemlist
-                  key={item.id}
-                  qtyValue={qtyValue}
-                  priceValue={priceValue}
-                  totalVlaue={totalVlaue}
+                 
                 />
               ))}
             </div>
@@ -326,7 +326,9 @@ const Modal = () => {
               <button
                 className="h-12 rounded-3xl text-bill_button bg-savedraft_button py-2 px-3 text-center text-nowrap text-sm font-bold hover:bg-black "
                 onClick={() => {
+                  const l=items.length
                   dispatch(
+                     
                     setInvoices([
                       ...rowInvoices,
                       {
@@ -343,10 +345,12 @@ const Modal = () => {
                         City_Client: cityVlaue,
                         Post_code_Client: postCodeVlaue,
                         Country_Client: countryVlaue,
-                        item_name: nameItemVlaue,
-                        qty: qtyValue,
-                        price_item: priceValue,
-                        total: totalVlaue,
+                        items:items.map((item )=>({
+                          item_name:item.nameItemVlaue,
+                          qty:item.qtyValue,
+                          price_item:item.priceValue,
+                          total: item.qtyValue*item.priceValue,
+                        }))
                       },
                     ])
                   );
@@ -368,10 +372,13 @@ const Modal = () => {
                         City_Client: cityVlaue,
                         Post_code_Client: postCodeVlaue,
                         Country_Client: countryVlaue,
-                        item_name: nameItemVlaue,
-                        qty: qtyValue,
-                        price_item: priceValue,
-                        total: totalVlaue,
+                         items:items.map((item )=>({
+                            item_name:item.nameItemVlaue,
+                            qty:item.qtyValue,
+                            price_item:item.priceValue,
+                            total: item.qtyValue*item.priceValue,
+                          }))
+                        
                       },
                     ])
                   );
@@ -401,10 +408,12 @@ const Modal = () => {
                         City_Client: cityVlaue,
                         Post_code_Client: postCodeVlaue,
                         Country_Client: countryVlaue,
-                        item_name: nameItemVlaue,
-                        qty: qtyValue,
-                        price_item: priceValue,
-                        total: totalVlaue,
+                        items:items.map((item )=>({
+                          item_name:item.nameItemVlaue,
+                          qty:item.qtyValue,
+                          price_item:item.priceValue,
+                          total:item.qtyValue*item.priceValue,
+                        }))
                       },
                     ])
                   );
@@ -426,10 +435,12 @@ const Modal = () => {
                         City_Client: cityVlaue,
                         Post_code_Client: postCodeVlaue,
                         Country_Client: countryVlaue,
-                        item_name: nameItemVlaue,
-                        qty: qtyValue,
-                        price_item: priceValue,
-                        total: totalVlaue,
+                        items:items.map((item )=>({
+                          item_name:item.nameItemVlaue,
+                          qty:item.qtyValue,
+                          price_item:item.priceValue,
+                          total:item.qtyValue*item.priceValue,
+                        }))
                       },
                     ])
                   );

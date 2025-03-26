@@ -94,6 +94,7 @@ const Invoices = () => {
                 return invoice.status === value.toLowerCase();
               })
               .map((invoice, index) => (
+                
                 <div
                   className="w-full bg-white rounded-lg flex justify-between items-center py-8 px-6 hover:border-violet-800 hover:border-solid hover:border-[1px] dark:bg-dark-primary-100 "
                   key={index}
@@ -115,7 +116,7 @@ const Invoices = () => {
                   </div>
                   <div className="flex gap-12 items-center">
                     <p className="text-lg font-bold  dark:text-dark-primary-1000">{`£ ${
-                      invoice.price_item * invoice.qty
+                         invoice.items?.reduce((sum,item)=>sum+(item.total||0),0)
                     }`}</p>
                     <div
                       className={clsx(
