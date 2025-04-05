@@ -298,9 +298,7 @@ const Modal = () => {
             </ul>
             <div>
               {items.map((item) => (
-                <Itemlist
-                 
-                />
+                <Itemlist key={item}/>
               ))}
             </div>
 
