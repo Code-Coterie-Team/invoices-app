@@ -150,8 +150,8 @@ const Reciept = () => {
               </div>
             </div>
             <div className="flex flex-col justify-center p-8 relative bg-[#f9fafe] items-center w-full rounded-md dark:bg-dark-primary-500">
-              {selectRow.items?.map((item)=>(
-                <ul className="flex justify-between list-none w-full">
+              {selectRow.items?.map((item,index)=>(
+                <ul className="flex justify-between list-none w-full" key={index}>
                 <li className="flex flex-col gap-8 justify-center items-start">
                   <p className="text-information text-sm">Item Name</p>
                   <p className="text-sm font-bold dark:text-dark-primary-1000">{item.item_name}</p>

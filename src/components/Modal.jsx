@@ -67,6 +67,8 @@ const Modal = () => {
     setDateValue("");
     setQtyValue("");
     setPriceValue("");
+    dispatch(setItemList([{ key: "", nameItemVlaue: "New Item", qtyValue: 0.0, priceValue: 0 }]))
+    
   };
 
   const generateRandomId = (length) => {
@@ -297,8 +299,8 @@ const Modal = () => {
               <li>Total</li>
             </ul>
             <div>
-              {items.map((item) => (
-                <Itemlist key={item}/>
+              {items.map((item,index) => (
+                <Itemlist key={index}/>
               ))}
             </div>
 

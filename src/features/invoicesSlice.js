@@ -22,7 +22,7 @@ const invoicesSlice = createSlice({
         items:[{ item_name: "Web Design",
           qty: 1,
           price_item: "6155.91",
-          total: "6155.91",}]
+          total: 6155.91,}]
       },
       {
         code: "XM9141",
@@ -41,7 +41,7 @@ const invoicesSlice = createSlice({
         items:[{ item_name: "Brand Guidelines",
           qty: "1",
           price_item: "1800.9",
-          total: "1800.9",}]
+          total: 1800.9,}]
       },
       {
         code: "RG0314",
@@ -60,7 +60,7 @@ const invoicesSlice = createSlice({
         items:[{ item_name: "Banner Design",
           qty: "1",
           price_item: "156",
-          total: "156",}]
+          total: 156,}]
       },
       {
         code: "RT2080",
@@ -79,7 +79,7 @@ const invoicesSlice = createSlice({
         items:[{item_name: "Logo Sketches",
           qty: "1",
           price_item: "102.04",
-          total: "102.04",}]
+          total: 102.04,}]
       },
       {
         code: "AA1449",
@@ -98,7 +98,7 @@ const invoicesSlice = createSlice({
         items:[{item_name: "New Logo",
           qty: "2",
           price_item: "1532.33",
-          total: "3064",}]
+          total: 3064,}]
       },
       {
         code: "TY9141",
@@ -117,7 +117,7 @@ const invoicesSlice = createSlice({
         items:[{ item_name: "Brand Guidelines",
           qty: "1",
           price_item: "2500",
-          total: "2500",}]
+          total: 2500,}]
       },
       {
         code: "FV2353",
@@ -131,7 +131,7 @@ const invoicesSlice = createSlice({
         items:[{ item_name: "Logo Re-design",
           qty: "1",
           price_item: "3102.04",
-          total: "3102.04",}]
+          total: 3102.04,}]
       },
     ],
   },

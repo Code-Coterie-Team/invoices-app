@@ -5,6 +5,7 @@ import { setInvoices } from "../features/invoicesSlice";
 
 const Itemlist = () => {
   const { items } = useSelector((state) => state.itemList);
+  console.log(items);
   const dispatch = useDispatch();
   const lastItem =
     items.length > 0
@@ -42,10 +43,6 @@ const Itemlist = () => {
   };
 
   const totalVlaue = qtyValue * priceValue;
-
-  // useEffect(()=>{
-  //   dispatch(setInvoices(prev)=>)
-  // },[])
 
   return (
     <div className="flex mb-3 items-center justify-between ">
