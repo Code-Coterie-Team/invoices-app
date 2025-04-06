@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 
 function Layout(props) {
 
-// add sidebar to layout
+
 const { theme } = useSelector((state) => state.theme);
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const { theme } = useSelector((state) => state.theme);
       }, [theme]);
 
   return (
-    <div className="flex h-full w-full">
+    <div className="flex flex-col md:flex-row h-full w-full">
       <Sidebar/>
       {props.children}
       </div>

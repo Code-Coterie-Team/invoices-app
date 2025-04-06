@@ -48,8 +48,8 @@ const Invoices = () => {
 
   return (
     <>
-      <div className="w-screen h-full bg-invoices flex justify-center dark:bg-dark-primary-300">
-        <div className="flex flex-col items-center w-6/12 py-20 gap-16 h-full">
+      <div className="w-full h-full bg-invoices flex justify-center dark:bg-dark-primary-300">
+        <div className="flex flex-col items-center w-full md:w-6/12 py-20 gap-16 h-full">
           <div className="flex justify-between w-full">
             <div className="flex flex-col gap-3">
               <h1 className="font-bold text-4xl dark:text-dark-primary-1000 ">
